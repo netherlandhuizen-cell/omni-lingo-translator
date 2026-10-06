@@ -221,7 +221,18 @@ export const WORD_MAP: Record<string, Record<LanguageCode, string>> = {
   'work': { en: 'work', de: 'Arbeit', nl: 'werk', id: 'pekerjaan' },
   'life': { en: 'life', de: 'Leben', nl: 'leven', id: 'hidup' },
   'road': { en: 'road', de: 'Straße', nl: 'weg', id: 'jalan' },
-  'money': { en: 'money', de: 'Geld', nl: 'geld', id: 'uang' }
+  'money': { en: 'money', de: 'Geld', nl: 'geld', id: 'uang' },
+  'excavator': { en: 'excavator', de: 'Bagger', nl: 'graafmachine', id: 'ekskavator' },
+  'bagger': { en: 'excavator', de: 'Bagger', nl: 'graafmachine', id: 'ekskavator' },
+  'graafmachine': { en: 'excavator', de: 'Bagger', nl: 'graafmachine', id: 'ekskavator' },
+  'ekskavator': { en: 'excavator', de: 'Bagger', nl: 'graafmachine', id: 'ekskavator' },
+  'oscilloscope': { en: 'oscilloscope', de: 'Oszilloskop', nl: 'oscilloscoop', id: 'osiloskop' },
+  'microscope': { en: 'microscope', de: 'Mikroskop', nl: 'microscoop', id: 'mikroskop' },
+  'centrifuge': { en: 'centrifuge', de: 'Zentrifuge', nl: 'centrifuge', id: 'sentrifus' },
+  'multimeter': { en: 'multimeter', de: 'Multimeter', nl: 'multimeter', id: 'multimeter' },
+  'lathe': { en: 'lathe', de: 'Drehbank', nl: 'draaibank', id: 'mesin bubut' },
+  'drone': { en: 'drone', de: 'Drohne', nl: 'drone', id: 'drone' },
+  'telescope': { en: 'telescope', de: 'Teleskop', nl: 'telescoop', id: 'teleskop' }
 };
 
 export function lookupOfflineDictionary(

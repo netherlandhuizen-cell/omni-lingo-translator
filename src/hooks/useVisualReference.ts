@@ -4,20 +4,35 @@ import {
   extractSearchTerm,
   type VisualReferenceResult,
 } from '../services/visualReference';
+import type { TranslationState, LanguageCode, IndustryCategory } from '../types';
 
-export function useVisualReference(primaryText: string, fallbackText: string) {
+export function useVisualReference(
+  texts: TranslationState,
+  activeSource: LanguageCode | null
+) {
   const [data, setData] = useState<VisualReferenceResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [category, setCategory] = useState<IndustryCategory>('auto');
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
-    // Choose candidate term: preferably English translation as it works best for global visual search,
-    // otherwise fallback to whatever active source text was typed
-    const candidate = extractSearchTerm(primaryText) || extractSearchTerm(fallbackText);
+    // 1. Determine active query from what the user is typing or the translated text
+    const activeText = activeSource ? texts[activeSource] : '';
+    const englishText = texts.en || '';
 
+    // Choose the best candidate query
+    const candidateRaw =
+      (englishText.trim().length > 1 ? englishText : '') ||
+      (activeText.trim().length > 1 ? activeText : '') ||
+      Object.values(texts).find((t) => t.trim().length > 1) ||
+      '';
+
+    const candidate = extractSearchTerm(candidateRaw);
+
+    // Cancel any previous debounce timer or ongoing fetch
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
@@ -25,6 +40,7 @@ export function useVisualReference(primaryText: string, fallbackText: string) {
       abortRef.current.abort();
     }
 
+    // 2. If all text boxes are empty or cleared, immediately show placeholder
     if (!candidate || candidate.length < 2) {
       setData(null);
       setIsLoading(false);
@@ -32,35 +48,38 @@ export function useVisualReference(primaryText: string, fallbackText: string) {
       return;
     }
 
+    // 3. Mark loading and set the searched term
     setSearchTerm(candidate);
     setIsLoading(true);
 
     const controller = new AbortController();
     abortRef.current = controller;
 
-    // Debounce image fetching at 550ms to stay decoupled from instant text typing
+    // 4. Debounce by 500ms to avoid spamming requests while typing
     timerRef.current = setTimeout(async () => {
       try {
-        const result = await fetchVisualReference(candidate, controller.signal);
+        const result = await fetchVisualReference(candidate, category, controller.signal);
         setData(result);
         setIsLoading(false);
       } catch (err: any) {
         if (err?.name !== 'AbortError') {
-          console.warn('Visual reference error:', err);
+          console.warn('Visual reference fetch failed:', err);
           setIsLoading(false);
         }
       }
-    }, 550);
+    }, 500);
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
       if (abortRef.current) abortRef.current.abort();
     };
-  }, [primaryText, fallbackText]);
+  }, [texts, activeSource, category]);
 
   return {
     data,
     isLoading,
     searchTerm,
+    category,
+    setCategory,
   };
 }

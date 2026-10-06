@@ -27,13 +27,14 @@ export function App() {
     handleSetSample,
   } = useMultiTranslator();
 
-  // Visual Reference Inspection hook (tracks English translation or active source)
-  const activeSourceText = activeSource ? texts[activeSource] : '';
+  // Visual Reference Inspection hook (automatically tracks live typing and real-time translations)
   const {
     data: visualData,
     isLoading: isVisualLoading,
     searchTerm: visualSearchTerm,
-  } = useVisualReference(texts.en, activeSourceText);
+    category: visualCategory,
+    setCategory: setVisualCategory,
+  } = useVisualReference(texts, activeSource);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -122,6 +123,8 @@ export function App() {
           data={visualData}
           isLoading={isVisualLoading}
           searchTerm={visualSearchTerm}
+          category={visualCategory}
+          onSelectCategory={setVisualCategory}
           texts={texts}
           onSelectSampleTerm={handleSelectEquipmentTerm}
         />

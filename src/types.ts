@@ -24,3 +24,14 @@ export interface EngineSettings {
   deepLKey?: string;
   debounceMs: number;
 }
+
+export type IndustryCategory = 'auto' | 'construction' | 'manufacturing' | 'laboratory' | 'electrical';
+
+export interface IndustryMeta {
+  id: IndustryCategory;
+  label: string;
+  shortLabel: string;
+  icon: string;
+  biasTerms: string;
+  sampleTerms: string[];
+}
