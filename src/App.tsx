@@ -72,11 +72,19 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors duration-150 relative selection:bg-zinc-900 selection:text-white dark:selection:bg-zinc-100 dark:selection:text-zinc-900">
-      {/* Ambient subtle background glow (Raycast / Apple style) */}
+    <div className="min-h-screen bg-slate-50 dark:bg-[#060b15] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-150 relative selection:bg-cyan-500 selection:text-slate-950 overflow-x-hidden">
+      {/* Ambient glowing highlights (Deep-slate & Cyan/Emerald Developer Glow) */}
       <div
         aria-hidden="true"
-        className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(99,102,241,0.06),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(99,102,241,0.12),rgba(0,0,0,0))]"
+        className="fixed top-[-10%] left-[15%] w-[650px] h-[550px] rounded-full pointer-events-none bg-cyan-500/10 dark:bg-cyan-500/12 blur-[140px]"
+      />
+      <div
+        aria-hidden="true"
+        className="fixed top-[45%] right-[10%] w-[550px] h-[550px] rounded-full pointer-events-none bg-emerald-500/8 dark:bg-emerald-500/10 blur-[130px]"
+      />
+      <div
+        aria-hidden="true"
+        className="fixed bottom-[-10%] left-[25%] w-[600px] h-[400px] rounded-full pointer-events-none bg-blue-600/8 dark:bg-blue-600/10 blur-[140px]"
       />
 
       {/* Refined Minimal Header */}
@@ -130,19 +138,23 @@ export function App() {
         />
       </main>
 
-      {/* Minimalist Footer */}
-      <footer className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-zinc-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400 dark:text-zinc-500">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          <span>Online</span>
-          <span className="text-zinc-300 dark:text-zinc-700">•</span>
-          <span className="capitalize">{settings.provider} engine</span>
-          <span className="text-zinc-300 dark:text-zinc-700">•</span>
-          <span>Visual Reference Inspector active</span>
+      {/* High-tech Status Footer */}
+      <footer className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-slate-200/80 dark:border-cyan-500/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Systems Online</span>
+          </div>
+          <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+          <span className="font-mono text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-400">{settings.provider} neural engine</span>
+          <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+          <span className="text-[11px] text-cyan-600 dark:text-cyan-400 font-medium">Vision Inspector Active</span>
         </div>
 
-        <div className="text-zinc-400 dark:text-zinc-500 font-mono text-[11px]">
-          EN · DE · NL · ID
+        <div className="flex items-center gap-3">
+          <div className="text-slate-400 dark:text-slate-500 font-mono text-[11px] px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800">
+            EN ⇄ DE ⇄ NL ⇄ ID
+          </div>
         </div>
       </footer>
 

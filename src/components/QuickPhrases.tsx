@@ -34,17 +34,21 @@ const SAMPLE_ITEMS: Array<{
 export const QuickPhrases: React.FC<QuickPhrasesProps> = ({ onSelectPhrase }) => {
   return (
     <div className="w-full flex flex-wrap items-center gap-2 mb-6 text-xs">
-      <span className="text-zinc-400 dark:text-zinc-500 font-medium select-none mr-1">
-        Try:
+      <span className="text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider text-[11px] select-none mr-1 flex items-center gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        Quick Prompts:
       </span>
 
       {SAMPLE_ITEMS.map((item, index) => (
         <button
           key={index}
           onClick={() => onSelectPhrase(item.lang, item.phrase)}
-          className="px-2.5 py-1 rounded-md bg-zinc-100/80 hover:bg-zinc-200/80 dark:bg-zinc-900/80 dark:hover:bg-zinc-800 border border-zinc-200/60 dark:border-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-all duration-150 cursor-pointer active:scale-98 truncate max-w-[260px] sm:max-w-none"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/80 dark:bg-[#0c1427]/80 hover:bg-cyan-50/70 dark:hover:bg-cyan-950/30 border border-slate-200/80 dark:border-cyan-500/15 hover:border-cyan-400/50 dark:hover:border-cyan-400/40 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-300 transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs truncate max-w-[280px] sm:max-w-none group"
         >
-          {item.phrase}
+          <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-cyan-400 font-bold uppercase group-hover:bg-cyan-500/20 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
+            {item.lang}
+          </span>
+          <span className="truncate">{item.phrase}</span>
         </button>
       ))}
     </div>
