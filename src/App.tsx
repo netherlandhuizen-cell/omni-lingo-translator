@@ -3,7 +3,9 @@ import { Header } from './components/Header';
 import { TranslationCard } from './components/TranslationCard';
 import { QuickPhrases } from './components/QuickPhrases';
 import { SettingsModal } from './components/SettingsModal';
+import { VisualReferenceCard } from './components/VisualReferenceCard';
 import { useMultiTranslator } from './hooks/useMultiTranslator';
+import { useVisualReference } from './hooks/useVisualReference';
 import { LANGUAGE_KEYS } from './constants/languages';
 import type { LanguageCode } from './types';
 
@@ -24,6 +26,14 @@ export function App() {
     handleToggleVoiceInput,
     handleSetSample,
   } = useMultiTranslator();
+
+  // Visual Reference Inspection hook (tracks English translation or active source)
+  const activeSourceText = activeSource ? texts[activeSource] : '';
+  const {
+    data: visualData,
+    isLoading: isVisualLoading,
+    searchTerm: visualSearchTerm,
+  } = useVisualReference(texts.en, activeSourceText);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -56,8 +66,18 @@ export function App() {
     }
   };
 
+  const handleSelectEquipmentTerm = (term: string) => {
+    handleSetSample('en', term);
+  };
+
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors duration-150">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors duration-150 relative selection:bg-zinc-900 selection:text-white dark:selection:bg-zinc-100 dark:selection:text-zinc-900">
+      {/* Ambient subtle background glow (Raycast / Apple style) */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(99,102,241,0.06),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-15%,rgba(99,102,241,0.12),rgba(0,0,0,0))]"
+      />
+
       {/* Refined Minimal Header */}
       <Header
         activeSource={activeSource}
@@ -68,15 +88,15 @@ export function App() {
         onToggleDarkMode={() => setIsDarkMode((prev) => !prev)}
       />
 
-      {/* Main Container with generous whitespace */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 py-8 flex flex-col justify-start">
-        {/* Subtle Quick Sample Prompts */}
+      {/* Main Container with generous, luxurious spacing */}
+      <main className="relative flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 py-8 flex flex-col justify-start">
+        {/* Subtle Quick Prompts Bar */}
         <QuickPhrases onSelectPhrase={handleSetSample} />
 
         {/* 2x2 Grid of the 4 Translation Cards */}
         <section
           aria-label="Multi-Language Workspace"
-          className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 flex-1"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6"
         >
           {LANGUAGE_KEYS.map((langKey) => (
             <TranslationCard
@@ -96,18 +116,29 @@ export function App() {
             />
           ))}
         </section>
+
+        {/* Inline Visual Reference & Equipment Inspector Card */}
+        <VisualReferenceCard
+          data={visualData}
+          isLoading={isVisualLoading}
+          searchTerm={visualSearchTerm}
+          texts={texts}
+          onSelectSampleTerm={handleSelectEquipmentTerm}
+        />
       </main>
 
       {/* Minimalist Footer */}
-      <footer className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-zinc-200/60 dark:border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400 dark:text-zinc-500">
+      <footer className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-zinc-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400 dark:text-zinc-500">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
           <span>Online</span>
           <span className="text-zinc-300 dark:text-zinc-700">•</span>
           <span className="capitalize">{settings.provider} engine</span>
+          <span className="text-zinc-300 dark:text-zinc-700">•</span>
+          <span>Visual Reference Inspector active</span>
         </div>
 
-        <div className="text-zinc-400 dark:text-zinc-500">
+        <div className="text-zinc-400 dark:text-zinc-500 font-mono text-[11px]">
           EN · DE · NL · ID
         </div>
       </footer>
