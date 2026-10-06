@@ -6,12 +6,6 @@ import { SettingsModal } from './components/SettingsModal';
 import { useMultiTranslator } from './hooks/useMultiTranslator';
 import { LANGUAGE_KEYS } from './constants/languages';
 import type { LanguageCode } from './types';
-import {
-  ArrowRightLeft,
-  Volume2,
-  Cpu,
-  Layers,
-} from 'lucide-react';
 
 export function App() {
   const {
@@ -41,7 +35,7 @@ export function App() {
     return false;
   });
 
-  // Apply dark mode class to root document element
+  // Sync dark mode class
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -63,8 +57,8 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/20 to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
-      {/* Top Header */}
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors duration-150">
+      {/* Refined Minimal Header */}
       <Header
         activeSource={activeSource}
         hasContent={hasAnyContent}
@@ -74,15 +68,15 @@ export function App() {
         onToggleDarkMode={() => setIsDarkMode((prev) => !prev)}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col justify-start">
-        {/* Quick Sample Phrases Bar */}
+      {/* Main Container with generous whitespace */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 py-8 flex flex-col justify-start">
+        {/* Subtle Quick Sample Prompts */}
         <QuickPhrases onSelectPhrase={handleSetSample} />
 
-        {/* 2x2 Grid of the 4 Interactive Language Cards */}
+        {/* 2x2 Grid of the 4 Translation Cards */}
         <section
-          aria-label="Quad Language Translation Workspace"
-          className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-8"
+          aria-label="Multi-Language Workspace"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 flex-1"
         >
           {LANGUAGE_KEYS.map((langKey) => (
             <TranslationCard
@@ -102,64 +96,19 @@ export function App() {
             />
           ))}
         </section>
-
-        {/* Informational Feature Highlights */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-auto pt-6 border-t border-slate-200/60 dark:border-slate-800/60">
-          <div className="p-4 rounded-2xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 shadow-2xs">
-            <div className="flex items-center gap-2 mb-1.5 text-indigo-600 dark:text-indigo-400 font-semibold text-xs uppercase tracking-wider">
-              <ArrowRightLeft className="w-4 h-4" />
-              <span>Bidirectional Real-Time</span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Type or paste into <strong>any</strong> of the 4 boxes — immediately synchronizes the remaining three.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 shadow-2xs">
-            <div className="flex items-center gap-2 mb-1.5 text-emerald-600 dark:text-emerald-400 font-semibold text-xs uppercase tracking-wider">
-              <Cpu className="w-4 h-4" />
-              <span>Loop-Free Caret State</span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Direct synchronous typing prevents cursor hopping, lag, or recursive translation feedback loops.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 shadow-2xs">
-            <div className="flex items-center gap-2 mb-1.5 text-blue-600 dark:text-blue-400 font-semibold text-xs uppercase tracking-wider">
-              <Layers className="w-4 h-4" />
-              <span>Multi-Tier Engine</span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Free MyMemory API with instant LRU cache and offline phrase dictionary fallback.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800 shadow-2xs">
-            <div className="flex items-center gap-2 mb-1.5 text-amber-600 dark:text-amber-400 font-semibold text-xs uppercase tracking-wider">
-              <Volume2 className="w-4 h-4" />
-              <span>Speech & Dictation</span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Listen to native pronunciations or dictate using your microphone in all 4 languages.
-            </p>
-          </div>
-        </section>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 text-center text-xs text-slate-400 dark:text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-1.5">
-          <span>Engine:</span>
-          <span className="font-semibold text-slate-600 dark:text-slate-400 capitalize">
-            {settings.provider === 'mymemory' ? 'MyMemory Public API' : settings.provider}
-          </span>
-          <span>•</span>
-          <span>Languages: EN 🇺🇸, DE 🇩🇪, NL 🇳🇱, ID 🇮🇩</span>
+      {/* Minimalist Footer */}
+      <footer className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-zinc-200/60 dark:border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400 dark:text-zinc-500">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span>Online</span>
+          <span className="text-zinc-300 dark:text-zinc-700">•</span>
+          <span className="capitalize">{settings.provider} engine</span>
         </div>
 
-        <div className="flex items-center gap-1">
-          <span>Crafted for high-performance real-time translation</span>
+        <div className="text-zinc-400 dark:text-zinc-500">
+          EN · DE · NL · ID
         </div>
       </footer>
 

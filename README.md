@@ -26,9 +26,10 @@ A modern, high-performance, responsive React web application for bidirectional r
   3. **LibreTranslate**: Connect to self-hosted or public LibreTranslate instances with optional API keys.
   4. **DeepL API**: Plug in DeepL Free or Pro authentication keys for neural translation quality.
   5. **In-Memory LRU Cache**: Avoids duplicate network calls and delivers instant results.
-- **Auto-Expanding Textareas**: Smooth automatic resizing using modern CSS (`field-sizing: content`) with dynamic height calculation fallbacks.
-- **Dark / Light Mode**: Beautiful theme toggle with system preference detection and `localStorage` persistence.
-- **Quick Sample Phrases Bar**: Interactive chips to test translations with a single click.
+- **Bespoke Minimalist UI (Linear / DeepL Style)**:
+  - Clean neutral monochrome palette (Zinc/Slate) with generous whitespace.
+  - Distraction-free, auto-expanding textareas with refined subtle borders.
+  - Minimal top navbar and clean quiet footer.
 
 ---
 
