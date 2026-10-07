@@ -113,10 +113,10 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
 
   return (
     <div
-      className={`group relative rounded-3xl bg-white/95 dark:bg-[#0c1427]/85 backdrop-blur-2xl border transition-all duration-300 flex flex-col overflow-visible ${
+      className={`group relative rounded-3xl backdrop-blur-md transition-all duration-300 flex flex-col overflow-visible ${
         isSource
-          ? 'border-amber-500/60 dark:border-amber-400/60 shadow-xl shadow-amber-950/20 dark:shadow-amber-950/40 ring-2 ring-amber-500/25 dark:ring-amber-400/20'
-          : 'border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-amber-500/30 shadow-md shadow-slate-950/5 dark:shadow-2xl'
+          ? 'bg-white/85 dark:bg-slate-900/75 border border-amber-500/60 dark:border-amber-400/60 shadow-2xl shadow-amber-950/20 dark:shadow-black/60 ring-2 ring-amber-500/25 dark:ring-amber-400/25'
+          : 'bg-white/75 dark:bg-slate-900/70 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-amber-500/35 shadow-xl shadow-slate-950/5 dark:shadow-black/50'
       }`}
     >
       {/* Top subtle glow line on active source card */}
@@ -158,10 +158,10 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
           {isDropdownOpen && (
             <div
               role="listbox"
-              className="absolute top-full left-0 mt-2 w-64 max-h-80 rounded-2xl bg-white/95 dark:bg-[#0c1427]/95 backdrop-blur-2xl border border-slate-200/90 dark:border-amber-500/30 shadow-2xl shadow-amber-950/30 z-50 overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150"
+              className="absolute top-full left-0 mt-2 w-64 max-h-80 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-amber-500/30 shadow-2xl shadow-black/60 z-50 overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150"
             >
               {/* Search Filter Header */}
-              <div className="p-2.5 border-b border-slate-100 dark:border-amber-500/15 bg-slate-50/70 dark:bg-[#080e1b]/70">
+              <div className="p-2.5 border-b border-slate-100 dark:border-amber-500/15 bg-slate-50/80 dark:bg-slate-950/70">
                 <div className="relative flex items-center">
                   <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
                   <input
@@ -278,7 +278,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
       </div>
 
       {/* Refined Bottom Actions */}
-      <div className="px-5 py-3 bg-slate-50/80 dark:bg-[#080d14]/80 rounded-b-3xl border-t border-slate-100 dark:border-amber-500/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+      <div className="px-5 py-3 bg-slate-50/60 dark:bg-slate-950/40 rounded-b-3xl border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
         {/* Action icons */}
         <div className="flex items-center gap-1.5">
           {/* Copy Button */}
