@@ -76,9 +76,9 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf7f2] dark:bg-gradient-to-b dark:from-[#080f1a] dark:via-[#060b13] dark:to-[#0a0c16] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-150 relative selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden">
+    <div className="min-h-screen bg-transparent text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200 relative selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden">
       {/* Artistic Fixed Archipelago Atmosphere: Island silhouettes, nautical contours, tropical fronds & sunset gradients */}
-      <ArchipelagoAtmosphere />
+      <ArchipelagoAtmosphere isDarkMode={isDarkMode} />
 
       {/* Ambient archipelago highlights (Warm Golden Amber & Tropical Emerald) */}
       <div
@@ -150,7 +150,7 @@ export function App() {
       </main>
 
       {/* Nusantara Studio Status Footer */}
-      <footer className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-slate-200/80 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+      <footer className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-slate-200/50 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400">
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>

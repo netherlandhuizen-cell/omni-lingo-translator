@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 
+interface ArchipelagoAtmosphereProps {
+  isDarkMode?: boolean;
+}
+
 /**
  * ArchipelagoAtmosphere
  * 
- * High-resolution tropical aerial beach & archipelago wallpaper fixed background,
- * layered with rich moody dark overlays, deep aquatic/emerald tints, warm sunset
- * undertones, and delicate nautical contour curves.
+ * Vivid aerial tropical beach and island wallpaper fixed background.
+ * Provides distinct atmospheres for Light & Dark mode:
  * 
- * Paired with frosted-glass UI containers to create a floating, luxurious,
- * distraction-free workspace with 100% text readability.
+ * - Dark Mode: Deep moody tropical night with glowing aqua/emerald lagoon accents,
+ *   warm golden fireflies, and dark-tinted ocean waters that clearly shine through.
+ * - Light Mode: A gorgeous sunny tropical day with bright, crystal-clear turquoise waters,
+ *   sun-kissed golden ambient rays, and breezy translucent overlays.
  */
-export const ArchipelagoAtmosphere: React.FC = () => {
+export const ArchipelagoAtmosphere: React.FC<ArchipelagoAtmosphereProps> = ({ isDarkMode }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Reliable, high-resolution aerial tropical beach & turquoise waters wallpaper
+  // High-resolution aerial tropical beach & turquoise ocean waters
   const wallpaperUrl =
     'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2560&q=85';
 
@@ -22,33 +27,52 @@ export const ArchipelagoAtmosphere: React.FC = () => {
       aria-hidden="true"
       className="fixed inset-0 pointer-events-none select-none overflow-hidden z-0"
     >
-      {/* 1. High-Resolution Aerial Tropical Beach & Island Wallpaper */}
+      {/* 1. Vivid High-Resolution Tropical Ocean Wallpaper */}
       <img
         src={wallpaperUrl}
-        alt="Tropical Archipelago Coastal Waters"
+        alt="Tropical Archipelago Aerial Waters"
         onLoad={() => setImageLoaded(true)}
-        className={`absolute inset-0 w-full h-full object-cover object-center scale-[1.02] transform-gpu transition-opacity duration-1000 ${
+        className={`absolute inset-0 w-full h-full object-cover object-center transform-gpu transition-opacity duration-700 ${
           imageLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
+        } ${isDarkMode ? 'brightness-[0.72] contrast-[1.08] saturate-[1.15]' : 'brightness-[1.03] contrast-[1.02] saturate-[1.1]'}`}
       />
 
-      {/* 2. Deep Moody Dark & Aquatic Gradient Overlays */}
-      {/* Primary dark base overlay (Slate-950 blended for moody cinematic atmosphere) */}
-      <div className="absolute inset-0 bg-slate-900/60 dark:bg-slate-950/82 backdrop-blur-[2px] transition-colors" />
+      {/* 2. Light & Dark Mode Atmospheric Treatments */}
+      {/* Dark Mode: Moody tropical night with glowing aqua/emerald & amber undertones */}
+      <div className="hidden dark:block absolute inset-0">
+        {/* Subtle dark tint so the ocean remains vividly visible */}
+        <div className="absolute inset-0 bg-slate-950/45 backdrop-blur-[1px]" />
 
-      {/* Deep aquatic & emerald lagoon tint (gives the water a rich, luxurious tropical depth) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-emerald-950/35 to-slate-950/90 mix-blend-multiply" />
+        {/* Luminous aquatic & emerald lagoon glow */}
+        <div className="absolute top-[20%] right-[10%] w-[650px] h-[650px] rounded-full bg-emerald-400/15 blur-[120px]" />
+        <div className="absolute top-[40%] right-[30%] w-[500px] h-[500px] rounded-full bg-teal-400/12 blur-[130px]" />
 
-      {/* Warm equatorial sunset & golden amber undertones from the bottom horizon */}
-      <div className="absolute inset-0 bg-radial-[ellipse_100%_60%_at_50%_100%] from-amber-500/[0.12] via-orange-600/[0.04] to-transparent dark:from-amber-500/[0.10] dark:via-orange-700/[0.04] dark:to-transparent" />
+        {/* Warm equatorial sunset & amber horizon glow */}
+        <div className="absolute -bottom-[10%] left-[25%] w-[700px] h-[500px] rounded-full bg-amber-500/12 blur-[140px]" />
 
-      {/* Tropical ocean lagoon aura on the east/right flank */}
-      <div className="absolute top-[25%] -right-[10%] w-[650px] h-[650px] rounded-full bg-emerald-500/[0.08] dark:bg-emerald-400/[0.10] blur-[140px]" />
+        {/* Deep celestial top aura */}
+        <div className="absolute -top-[15%] left-[10%] w-[600px] h-[450px] rounded-full bg-cyan-500/10 blur-[140px]" />
 
-      {/* Ambient warm golden glow on the top flank */}
-      <div className="absolute -top-[12%] left-[25%] w-[600px] h-[500px] rounded-full bg-amber-400/[0.06] dark:bg-amber-400/[0.08] blur-[150px]" />
+        {/* Gentle dark gradient framing to ensure text comfort */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-transparent to-slate-950/60" />
+      </div>
 
-      {/* 3. Subtle Stylized Archipelago Nautical Contours & Silhouettes */}
+      {/* Light Mode: Gorgeous sunny tropical day with golden sunlight rays & crystalline turquoise waters */}
+      <div className="block dark:hidden absolute inset-0">
+        {/* Airy translucent mist keeping the vibrant ocean completely visible */}
+        <div className="absolute inset-0 bg-white/20 backdrop-blur-[0.5px]" />
+
+        {/* Warm golden sunlight radiating from the top-right */}
+        <div className="absolute -top-[10%] right-[5%] w-[600px] h-[600px] rounded-full bg-amber-300/25 blur-[120px]" />
+
+        {/* Sun-dappled tropical emerald reef glow */}
+        <div className="absolute top-[35%] right-[25%] w-[550px] h-[550px] rounded-full bg-emerald-300/15 blur-[130px]" />
+
+        {/* Soft sky-tinted ambient wash */}
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-50/20 via-transparent to-emerald-50/25" />
+      </div>
+
+      {/* 3. Subtle Archipelago Nautical Contours & Tropical Accents */}
       <svg
         className="absolute inset-0 w-full h-full text-slate-800 dark:text-amber-100"
         viewBox="0 0 1440 900"
@@ -58,20 +82,20 @@ export const ArchipelagoAtmosphere: React.FC = () => {
       >
         <defs>
           <linearGradient id="contourStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.04" />
-            <stop offset="50%" stopColor="#10b981" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.04" />
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.06" />
+            <stop offset="50%" stopColor="#10b981" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.08" />
           </linearGradient>
 
           <linearGradient id="volcanoMist" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stopColor="#d97706" stopOpacity="0.05" />
-            <stop offset="60%" stopColor="#059669" stopOpacity="0.03" />
-            <stop offset="100%" stopColor="#0f172a" stopOpacity="0.01" />
+            <stop offset="0%" stopColor="#d97706" stopOpacity="0.06" />
+            <stop offset="60%" stopColor="#059669" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#0f172a" stopOpacity="0.02" />
           </linearGradient>
         </defs>
 
-        {/* Nautical Bathymetric Ocean Contours (recalling nautical charts of the Indonesian seas) */}
-        <g className="opacity-35 dark:opacity-50">
+        {/* Nautical Bathymetric Ocean Contours */}
+        <g className="opacity-30 dark:opacity-45">
           <path
             d="M -100,280 C 200,240 450,330 750,290 C 1050,250 1300,320 1550,270"
             stroke="url(#contourStroke)"
@@ -109,12 +133,12 @@ export const ArchipelagoAtmosphere: React.FC = () => {
              Q 1400,690 1440,695 
              L 1440,900 L 0,900 Z"
           fill="url(#volcanoMist)"
-          className="opacity-50 dark:opacity-60"
+          className="opacity-40 dark:opacity-60"
         />
 
         {/* Minimalist Tropical Botanical Palm Fronds (Framing bottom corners) */}
         {/* Left Frond */}
-        <g className="opacity-[0.04] dark:opacity-[0.07] transition-opacity">
+        <g className="opacity-[0.05] dark:opacity-[0.08] transition-opacity">
           <path
             d="M -20,910 Q 40,840 80,760 Q 110,700 130,620"
             stroke="#f59e0b"
@@ -130,7 +154,7 @@ export const ArchipelagoAtmosphere: React.FC = () => {
         </g>
 
         {/* Right Frond */}
-        <g className="opacity-[0.04] dark:opacity-[0.07] transition-opacity">
+        <g className="opacity-[0.05] dark:opacity-[0.08] transition-opacity">
           <path
             d="M 1460,910 Q 1400,830 1360,750 Q 1330,680 1310,600"
             stroke="#10b981"
@@ -141,20 +165,17 @@ export const ArchipelagoAtmosphere: React.FC = () => {
           <path d="M 1385,800 Q 1325,775 1285,790" stroke="#f59e0b" strokeWidth="1.8" strokeLinecap="round" />
           <path d="M 1370,765 Q 1305,735 1265,750" stroke="#10b981" strokeWidth="1.8" strokeLinecap="round" />
           <path d="M 1355,730 Q 1290,695 1255,710" stroke="#f59e0b" strokeWidth="1.8" strokeLinecap="round" />
-          <path d="M 1338,690 Q 1280,650 1250,665" stroke="#10b981" strokeWidth="1.8" strokeLinecap="round" />
         </g>
 
-        {/* Subtle glowing embers (kunang-kunang) */}
-        <g className="opacity-40 dark:opacity-70">
-          <circle cx="210" cy="460" r="1.5" fill="#f59e0b" className="animate-pulse" />
-          <circle cx="580" cy="510" r="1.5" fill="#f59e0b" />
-          <circle cx="890" cy="430" r="1.2" fill="#34d399" className="animate-pulse" />
+        {/* Subtle glowing tropical bioluminescence (kunang-kunang) in dark mode */}
+        <g className="opacity-0 dark:opacity-75 transition-opacity">
+          <circle cx="210" cy="460" r="1.5" fill="#38bdf8" className="animate-pulse" />
+          <circle cx="580" cy="510" r="1.5" fill="#34d399" />
+          <circle cx="890" cy="430" r="1.5" fill="#2dd4bf" className="animate-pulse" />
           <circle cx="1120" cy="490" r="1.5" fill="#fbbf24" />
+          <circle cx="1280" cy="380" r="1.2" fill="#34d399" />
         </g>
       </svg>
-
-      {/* 4. Center Vignette: Keeps center stage clean & ultra-readable */}
-      <div className="absolute inset-0 bg-radial-[circle_at_center] from-transparent via-transparent to-slate-950/40 dark:to-black/60 pointer-events-none" />
     </div>
   );
 };

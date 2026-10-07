@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   body {
-    @apply bg-zinc-50 text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white dark:bg-zinc-950 dark:text-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900;
+    @apply bg-transparent text-slate-900 antialiased selection:bg-amber-400 selection:text-slate-950 dark:text-slate-100;
     min-height: 100vh;
   }
 

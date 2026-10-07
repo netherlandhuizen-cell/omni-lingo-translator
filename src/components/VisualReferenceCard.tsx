@@ -69,12 +69,12 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
   const currentSampleTerms = activeCategoryMeta.sampleTerms;
 
   return (
-    <div className="relative w-full mt-8 rounded-3xl bg-white/80 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/80 dark:border-white/10 shadow-2xl shadow-black/50 overflow-hidden transition-all duration-300">
+    <div className="relative w-full mt-8 rounded-3xl bg-white/60 dark:bg-slate-950/45 backdrop-blur-md border border-white/60 dark:border-white/10 shadow-2xl shadow-black/40 overflow-hidden transition-all duration-300">
       {/* Top Ambient Neon Border Glow */}
       <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 dark:via-amber-400 to-transparent opacity-80" />
 
       {/* Top Header */}
-      <div className="px-6 py-4 border-b border-slate-100 dark:border-amber-500/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="px-6 py-4 border-b border-slate-200/50 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-400 to-emerald-400 text-slate-950 shadow-md shadow-amber-500/30 ring-1 ring-amber-300/40">
             <Cpu className="w-4 h-4 text-slate-950 font-bold" />
@@ -133,7 +133,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
       </div>
 
       {/* Vibrant Industry Theme Selector Bar */}
-      <div className="px-6 py-3 bg-slate-50/70 dark:bg-slate-950/40 border-b border-slate-100 dark:border-white/5 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
+      <div className="px-6 py-3 bg-white/40 dark:bg-slate-950/30 border-b border-slate-200/50 dark:border-white/10 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
         <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mr-1 select-none flex-shrink-0 font-semibold flex items-center gap-1">
           <Sparkles className="w-3 h-3 text-amber-400" />
           Industry Theme:

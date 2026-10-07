@@ -115,8 +115,8 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
     <div
       className={`group relative rounded-3xl backdrop-blur-md transition-all duration-300 flex flex-col overflow-visible ${
         isSource
-          ? 'bg-white/85 dark:bg-slate-900/75 border border-amber-500/60 dark:border-amber-400/60 shadow-2xl shadow-amber-950/20 dark:shadow-black/60 ring-2 ring-amber-500/25 dark:ring-amber-400/25'
-          : 'bg-white/75 dark:bg-slate-900/70 border border-slate-200/80 dark:border-white/10 hover:border-slate-300 dark:hover:border-amber-500/35 shadow-xl shadow-slate-950/5 dark:shadow-black/50'
+          ? 'bg-white/70 dark:bg-slate-950/55 border border-amber-500/70 dark:border-amber-400/60 shadow-2xl shadow-amber-950/20 dark:shadow-black/60 ring-2 ring-amber-500/30 dark:ring-amber-400/30'
+          : 'bg-white/60 dark:bg-slate-950/45 border border-white/60 dark:border-white/10 hover:border-amber-500/40 dark:hover:border-amber-500/35 shadow-xl shadow-slate-900/5 dark:shadow-black/50'
       }`}
     >
       {/* Top subtle glow line on active source card */}
@@ -125,7 +125,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
       )}
 
       {/* Top Header with Compact Dynamic Language Dropdown */}
-      <div className="px-6 py-4 flex items-center justify-between border-b border-slate-100 dark:border-amber-500/10">
+      <div className="px-6 py-4 flex items-center justify-between border-b border-slate-200/50 dark:border-white/10">
         {/* Dynamic Language Selector Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
@@ -278,7 +278,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
       </div>
 
       {/* Refined Bottom Actions */}
-      <div className="px-5 py-3 bg-slate-50/60 dark:bg-slate-950/40 rounded-b-3xl border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+      <div className="px-5 py-3 bg-white/40 dark:bg-slate-950/30 rounded-b-3xl border-t border-slate-200/50 dark:border-white/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
         {/* Action icons */}
         <div className="flex items-center gap-1.5">
           {/* Copy Button */}

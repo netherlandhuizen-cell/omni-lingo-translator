@@ -43,7 +43,7 @@ export const QuickPhrases: React.FC<QuickPhrasesProps> = ({ onSelectPhrase }) =>
         <button
           key={index}
           onClick={() => onSelectPhrase(item.lang, item.phrase)}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/70 dark:bg-slate-900/65 backdrop-blur-sm hover:bg-white/90 dark:hover:bg-slate-800/80 border border-slate-200/80 dark:border-white/10 hover:border-amber-400/50 dark:hover:border-amber-400/40 text-slate-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-300 transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs truncate max-w-[280px] sm:max-w-none group"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/60 dark:bg-slate-950/40 backdrop-blur-md hover:bg-white/80 dark:hover:bg-slate-900/60 border border-white/60 dark:border-white/10 hover:border-amber-400/50 dark:hover:border-amber-400/40 text-slate-700 dark:text-slate-200 hover:text-amber-700 dark:hover:text-amber-300 transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs truncate max-w-[280px] sm:max-w-none group"
         >
           <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 font-bold uppercase group-hover:bg-amber-500/20 group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors">
             {item.lang}
