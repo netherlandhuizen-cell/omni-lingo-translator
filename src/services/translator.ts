@@ -50,9 +50,46 @@ function getCacheKey(text: string, from: LanguageCode, to: LanguageCode, provide
  */
 
 /**
- * MyMemory API Translation
+ * Splits text up to 1,000 characters into safe chunks <= 420 characters
+ * to comply with MyMemory's 500-character single query limit.
  */
-async function translateWithMyMemory(
+function splitTextIntoSafeChunks(text: string, maxChunkLen: number = 420): string[] {
+  if (text.length <= maxChunkLen) {
+    return [text];
+  }
+
+  const chunks: string[] = [];
+  let remaining = text;
+
+  while (remaining.length > 0) {
+    if (remaining.length <= maxChunkLen) {
+      chunks.push(remaining);
+      break;
+    }
+
+    // Try splitting at newline, sentence end, or whitespace
+    let splitIdx = remaining.lastIndexOf('\n', maxChunkLen);
+    if (splitIdx === -1 || splitIdx < 80) splitIdx = remaining.lastIndexOf('. ', maxChunkLen);
+    if (splitIdx === -1 || splitIdx < 80) splitIdx = remaining.lastIndexOf('! ', maxChunkLen);
+    if (splitIdx === -1 || splitIdx < 80) splitIdx = remaining.lastIndexOf('? ', maxChunkLen);
+    if (splitIdx === -1 || splitIdx < 80) splitIdx = remaining.lastIndexOf(' ', maxChunkLen);
+    if (splitIdx === -1) splitIdx = maxChunkLen;
+    else if (remaining[splitIdx] === '.' || remaining[splitIdx] === '!' || remaining[splitIdx] === '?') {
+      splitIdx += 1;
+    }
+
+    const chunk = remaining.slice(0, splitIdx).trim();
+    if (chunk) chunks.push(chunk);
+    remaining = remaining.slice(splitIdx).trim();
+  }
+
+  return chunks.length > 0 ? chunks : [text];
+}
+
+/**
+ * Single chunk MyMemory translation
+ */
+async function translateMyMemoryChunk(
   text: string,
   from: LanguageCode,
   to: LanguageCode,
@@ -79,15 +116,14 @@ async function translateWithMyMemory(
 
   if (data?.responseStatus === 200 || data?.responseData?.translatedText) {
     let translated = data.responseData.translatedText;
-    
+
     // Check if MyMemory returned a rate limit quota notification
     if (typeof translated === 'string' && translated.includes('MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS')) {
       throw new Error('MyMemory daily quota exceeded. Falling back to offline dictionary.');
     }
 
-    // If matches are provided, see if a higher quality machine-translation or verified translation exists
+    // If matches are provided, see if a higher quality machine-translation exists
     if (Array.isArray(data.matches) && data.matches.length > 1) {
-      // Look for matches by MateCat or high quality with valid translation
       const verifiedMatch = data.matches.find(
         (m: any) =>
           m.translation &&
@@ -103,6 +139,28 @@ async function translateWithMyMemory(
   }
 
   throw new Error(data?.responseDetails || 'MyMemory translation failed');
+}
+
+/**
+ * MyMemory API Translation (supports paragraphs up to 1,000 characters)
+ */
+async function translateWithMyMemory(
+  text: string,
+  from: LanguageCode,
+  to: LanguageCode,
+  email?: string,
+  signal?: AbortSignal
+): Promise<string> {
+  if (text.length <= 420) {
+    return translateMyMemoryChunk(text, from, to, email, signal);
+  }
+
+  const chunks = splitTextIntoSafeChunks(text, 420);
+  const translatedChunks = await Promise.all(
+    chunks.map((chunk) => translateMyMemoryChunk(chunk, from, to, email, signal))
+  );
+
+  return translatedChunks.join(' ');
 }
 
 /**
@@ -164,7 +222,9 @@ async function translateWithDeepL(
     throw new Error('DeepL API key is required');
   }
 
-  const targetLang = to === 'en' ? 'EN-US' : to.toUpperCase();
+  let targetLang = to.toUpperCase();
+  if (to === 'en') targetLang = 'EN-US';
+  if (to === 'pt') targetLang = 'PT-PT';
   const sourceLang = from.toUpperCase();
 
   const isFreeKey = apiKey.endsWith(':fx');

@@ -6,7 +6,6 @@ import { SettingsModal } from './components/SettingsModal';
 import { VisualReferenceCard } from './components/VisualReferenceCard';
 import { useMultiTranslator } from './hooks/useMultiTranslator';
 import { useVisualReference } from './hooks/useVisualReference';
-import { LANGUAGE_KEYS } from './constants/languages';
 import type { LanguageCode } from './types';
 
 export function App() {
@@ -19,6 +18,8 @@ export function App() {
     listeningLang,
     settings,
     setSettings,
+    slotLanguages,
+    handleSlotLanguageChange,
     handleTextChange,
     handleClearAll,
     handleCopy,
@@ -68,7 +69,7 @@ export function App() {
   };
 
   const handleSelectEquipmentTerm = (term: string) => {
-    handleSetSample('en', term);
+    handleSetSample(slotLanguages[0], term);
   };
 
   return (
@@ -102,17 +103,20 @@ export function App() {
         {/* Subtle Quick Prompts Bar */}
         <QuickPhrases onSelectPhrase={handleSetSample} />
 
-        {/* 2x2 Grid of the 4 Translation Cards */}
+        {/* 2x2 Grid of the 4 Dynamic Translation Cards */}
         <section
           aria-label="Multi-Language Workspace"
           className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6"
         >
-          {LANGUAGE_KEYS.map((langKey) => (
+          {slotLanguages.map((langKey, slotIndex) => (
             <TranslationCard
-              key={langKey}
+              key={`slot-${slotIndex}-${langKey}`}
+              slotIndex={slotIndex}
               lang={langKey}
-              text={texts[langKey]}
-              isLoading={loading[langKey]}
+              activeSlots={slotLanguages}
+              onLanguageChange={(newLang) => handleSlotLanguageChange(slotIndex, newLang)}
+              text={texts[langKey] || ''}
+              isLoading={loading[langKey] || false}
               isSource={activeSource === langKey}
               isCopied={copiedLang === langKey}
               isSpeaking={speakingLang === langKey}
@@ -153,7 +157,7 @@ export function App() {
 
         <div className="flex items-center gap-3">
           <div className="text-slate-400 dark:text-slate-500 font-mono text-[11px] px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800">
-            EN ⇄ DE ⇄ NL ⇄ ID
+            {slotLanguages.map((l) => l.toUpperCase()).join(' ⇄ ')}
           </div>
         </div>
       </footer>

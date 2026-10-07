@@ -190,7 +190,7 @@ export const COMMON_PHRASES: PhraseEntry[] = [
   }
 ];
 
-export const WORD_MAP: Record<string, Record<LanguageCode, string>> = {
+export const WORD_MAP: Record<string, Partial<Record<LanguageCode, string>>> = {
   'good': { en: 'good', de: 'gut', nl: 'goed', id: 'baik' },
   'bad': { en: 'bad', de: 'schlecht', nl: 'slecht', id: 'buruk' },
   'morning': { en: 'morning', de: 'Morgen', nl: 'ochtend', id: 'pagi' },
@@ -244,16 +244,22 @@ export function lookupOfflineDictionary(
   if (!trimmed) return '';
 
   for (const item of COMMON_PHRASES) {
-    if (item[from].toLowerCase() === trimmed) {
-      return item[to];
+    const fromVal = (item as any)[from];
+    const toVal = (item as any)[to];
+    if (fromVal && toVal && fromVal.toLowerCase() === trimmed) {
+      return toVal;
     }
   }
 
   const cleanTrimmed = trimmed.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '').trim();
   for (const item of COMMON_PHRASES) {
-    const cleanItem = item[from].toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '').trim();
-    if (cleanItem === cleanTrimmed) {
-      return item[to];
+    const fromVal = (item as any)[from];
+    const toVal = (item as any)[to];
+    if (fromVal && toVal) {
+      const cleanItem = fromVal.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '').trim();
+      if (cleanItem === cleanTrimmed) {
+        return toVal;
+      }
     }
   }
 
@@ -265,8 +271,10 @@ export function lookupOfflineDictionary(
     for (const w of words) {
       let foundTranslation = '';
       for (const entry of Object.values(WORD_MAP)) {
-        if (entry[from].toLowerCase() === w) {
-          foundTranslation = entry[to];
+        const fromVal = (entry as any)[from];
+        const toVal = (entry as any)[to];
+        if (fromVal && toVal && fromVal.toLowerCase() === w) {
+          foundTranslation = toVal;
           matchedAny = true;
           break;
         }

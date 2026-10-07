@@ -27,6 +27,7 @@
 .auto-expand-textarea {
   field-sizing: content;
   min-height: 160px;
-  max-height: 480px;
+  max-height: 460px;
   resize: none;
+  overflow-y: auto;
 }

@@ -1,21 +1,21 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import type { LanguageCode, TranslationState, LoadingState, EngineSettings } from '../types';
 import { translateText } from '../services/translator';
-import { SUPPORTED_LANGUAGES, LANGUAGE_KEYS } from '../constants/languages';
+import {
+  SUPPORTED_LANGUAGES,
+  DEFAULT_SLOT_LANGUAGES,
+  ALL_LANGUAGES,
+} from '../constants/languages';
 
-const INITIAL_TEXTS: TranslationState = {
-  en: '',
-  de: '',
-  nl: '',
-  id: '',
-};
+const INITIAL_TEXTS: TranslationState = ALL_LANGUAGES.reduce((acc, lang) => {
+  acc[lang] = '';
+  return acc;
+}, {} as TranslationState);
 
-const INITIAL_LOADING: LoadingState = {
-  en: false,
-  de: false,
-  nl: false,
-  id: false,
-};
+const INITIAL_LOADING: LoadingState = ALL_LANGUAGES.reduce((acc, lang) => {
+  acc[lang] = false;
+  return acc;
+}, {} as LoadingState);
 
 const DEFAULT_SETTINGS: EngineSettings = {
   provider: 'mymemory',
@@ -27,15 +27,31 @@ const DEFAULT_SETTINGS: EngineSettings = {
 };
 
 export function useMultiTranslator() {
-  const [texts, setTexts] = useState<TranslationState>(() => {
-    return INITIAL_TEXTS;
-  });
-
+  const [texts, setTexts] = useState<TranslationState>(() => INITIAL_TEXTS);
   const [loading, setLoading] = useState<LoadingState>(INITIAL_LOADING);
   const [activeSource, setActiveSource] = useState<LanguageCode | null>(null);
   const [copiedLang, setCopiedLang] = useState<LanguageCode | null>(null);
   const [speakingLang, setSpeakingLang] = useState<LanguageCode | null>(null);
   const [listeningLang, setListeningLang] = useState<LanguageCode | null>(null);
+
+  // 4 dynamic language slots
+  const [slotLanguages, setSlotLanguages] = useState<
+    [LanguageCode, LanguageCode, LanguageCode, LanguageCode]
+  >(() => {
+    try {
+      const saved = localStorage.getItem('omni_slot_languages');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length === 4) {
+          return parsed as [LanguageCode, LanguageCode, LanguageCode, LanguageCode];
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return DEFAULT_SLOT_LANGUAGES;
+  });
+
   const [settings, setSettings] = useState<EngineSettings>(() => {
     try {
       const saved = localStorage.getItem('translator_settings');
@@ -49,11 +65,23 @@ export function useMultiTranslator() {
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const activeSourceRef = useRef<LanguageCode | null>(null);
+  const slotLanguagesRef = useRef<[LanguageCode, LanguageCode, LanguageCode, LanguageCode]>(
+    slotLanguages
+  );
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
     activeSourceRef.current = activeSource;
   }, [activeSource]);
+
+  useEffect(() => {
+    slotLanguagesRef.current = slotLanguages;
+    try {
+      localStorage.setItem('omni_slot_languages', JSON.stringify(slotLanguages));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [slotLanguages]);
 
   useEffect(() => {
     try {
@@ -85,7 +113,8 @@ export function useMultiTranslator() {
       abortControllerRef.current = controller;
 
       const trimmed = sourceText.trim();
-      const targetLangs = LANGUAGE_KEYS.filter((l) => l !== sourceLang);
+      const currentSlots = slotLanguagesRef.current;
+      const targetLangs = currentSlots.filter((l) => l !== sourceLang);
 
       if (!trimmed) {
         setTexts((prev) => {
@@ -142,53 +171,102 @@ export function useMultiTranslator() {
 
   const handleTextChange = useCallback(
     (lang: LanguageCode, value: string) => {
+      // Enforce 1,000 character limit
+      const safeValue = value.length > 1000 ? value.slice(0, 1000) : value;
+
       setActiveSource(lang);
       activeSourceRef.current = lang;
 
       setTexts((prev) => ({
         ...prev,
-        [lang]: value,
+        [lang]: safeValue,
       }));
 
       if (debounceTimerRef.current) {
         clearTimeout(debounceTimerRef.current);
       }
 
-      if (!value.trim()) {
+      if (!safeValue.trim()) {
         setTexts(INITIAL_TEXTS);
         setLoading(INITIAL_LOADING);
         return;
       }
 
+      const currentSlots = slotLanguagesRef.current;
       setLoading((prev) => {
         const next = { ...prev };
-        LANGUAGE_KEYS.forEach((l) => {
+        currentSlots.forEach((l) => {
           next[l] = l !== lang;
         });
         return next;
       });
 
       debounceTimerRef.current = setTimeout(() => {
-        triggerTranslation(lang, value);
+        triggerTranslation(lang, safeValue);
       }, settings.debounceMs);
     },
     [settings.debounceMs, triggerTranslation]
   );
 
+  const handleSlotLanguageChange = useCallback(
+    (slotIndex: number, newLang: LanguageCode) => {
+      setSlotLanguages((prev) => {
+        const next: [LanguageCode, LanguageCode, LanguageCode, LanguageCode] = [...prev];
+        const oldLang = next[slotIndex];
+
+        if (oldLang === newLang) return prev;
+
+        const existingSlotIndex = next.indexOf(newLang);
+        if (existingSlotIndex !== -1) {
+          // Swap positions so every box has a distinct language
+          next[existingSlotIndex] = oldLang;
+          next[slotIndex] = newLang;
+        } else {
+          next[slotIndex] = newLang;
+        }
+
+        return next;
+      });
+
+      // If active source text exists, translate into the new language right away
+      const currentSource = activeSourceRef.current;
+      if (currentSource && texts[currentSource]?.trim()) {
+        const sourceText = texts[currentSource];
+        if (currentSource !== newLang) {
+          setLoading((prev) => ({ ...prev, [newLang]: true }));
+
+          translateText(sourceText, currentSource, newLang, settings)
+            .then((translated) => {
+              setTexts((prev) => ({ ...prev, [newLang]: translated }));
+            })
+            .catch((err) => {
+              console.error(`Translation failed on language switch [${currentSource} -> ${newLang}]:`, err);
+            })
+            .finally(() => {
+              setLoading((prev) => ({ ...prev, [newLang]: false }));
+            });
+        }
+      }
+    },
+    [texts, settings]
+  );
+
   const handleSetSample = useCallback(
     (lang: LanguageCode, text: string) => {
+      const safeText = text.length > 1000 ? text.slice(0, 1000) : text;
       setActiveSource(lang);
       activeSourceRef.current = lang;
+
       setTexts((prev) => ({
         ...prev,
-        [lang]: text,
+        [lang]: safeText,
       }));
 
       if (debounceTimerRef.current) {
         clearTimeout(debounceTimerRef.current);
       }
 
-      triggerTranslation(lang, text);
+      triggerTranslation(lang, safeText);
     },
     [triggerTranslation]
   );
@@ -214,20 +292,23 @@ export function useMultiTranslator() {
     setListeningLang(null);
   }, []);
 
-  const handleCopy = useCallback(async (lang: LanguageCode) => {
-    const textToCopy = texts[lang];
-    if (!textToCopy) return;
+  const handleCopy = useCallback(
+    async (lang: LanguageCode) => {
+      const textToCopy = texts[lang];
+      if (!textToCopy) return;
 
-    try {
-      await navigator.clipboard.writeText(textToCopy);
-      setCopiedLang(lang);
-      setTimeout(() => {
-        setCopiedLang((current) => (current === lang ? null : current));
-      }, 2000);
-    } catch (err) {
-      console.error('Failed to copy text:', err);
-    }
-  }, [texts]);
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        setCopiedLang(lang);
+        setTimeout(() => {
+          setCopiedLang((current) => (current === lang ? null : current));
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy text:', err);
+      }
+    },
+    [texts]
+  );
 
   const handleSpeak = useCallback(
     (lang: LanguageCode) => {
@@ -242,7 +323,8 @@ export function useMultiTranslator() {
       }
 
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.lang = SUPPORTED_LANGUAGES[lang].speechCode;
+      const meta = SUPPORTED_LANGUAGES[lang];
+      utterance.lang = meta?.speechCode || 'en-US';
       utterance.rate = 0.95;
 
       utterance.onstart = () => {
@@ -268,7 +350,9 @@ export function useMultiTranslator() {
         (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
       if (!SpeechRecognition) {
-        alert('Voice speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.');
+        alert(
+          'Voice speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.'
+        );
         return;
       }
 
@@ -284,7 +368,8 @@ export function useMultiTranslator() {
 
       const recognition = new SpeechRecognition();
       recognitionRef.current = recognition;
-      recognition.lang = SUPPORTED_LANGUAGES[lang].speechCode;
+      const meta = SUPPORTED_LANGUAGES[lang];
+      recognition.lang = meta?.speechCode || 'en-US';
       recognition.continuous = false;
       recognition.interimResults = false;
 
@@ -322,6 +407,8 @@ export function useMultiTranslator() {
     listeningLang,
     settings,
     setSettings,
+    slotLanguages,
+    handleSlotLanguageChange,
     handleTextChange,
     handleClearAll,
     handleCopy,

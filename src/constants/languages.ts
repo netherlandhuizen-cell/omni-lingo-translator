@@ -7,13 +7,13 @@ export const SUPPORTED_LANGUAGES: Record<LanguageCode, LanguageMeta> = {
     nativeName: 'English',
     flag: '🇺🇸',
     speechCode: 'en-US',
-    placeholder: 'Type or paste English text here...',
+    placeholder: 'Type or paste English text here (up to 1,000 chars)...',
     samplePhrases: [
       'Good morning! How are you doing today?',
       'Can you please help me find the nearest train station?',
-      'Technology makes the world more connected.',
-      'Thank you very much for your kind support!'
-    ]
+      'Simultaneous translation makes global collaboration effortless.',
+      'The hydraulic excavator requires scheduled maintenance.',
+    ],
   },
   de: {
     code: 'de',
@@ -21,13 +21,13 @@ export const SUPPORTED_LANGUAGES: Record<LanguageCode, LanguageMeta> = {
     nativeName: 'Deutsch',
     flag: '🇩🇪',
     speechCode: 'de-DE',
-    placeholder: 'Deutschen Text hier eingeben oder einfügen...',
+    placeholder: 'Deutschen Text hier eingeben oder einfügen (bis zu 1.000 Zeichen)...',
     samplePhrases: [
       'Guten Morgen! Wie geht es dir heute?',
       'Können Sie mir bitte helfen, den nächsten Bahnhof zu finden?',
-      'Technologie verbindet die Welt.',
-      'Vielen Dank für Ihre freundliche Unterstützung!'
-    ]
+      'Echtzeit-Übersetzung verbindet globale Teams nahtlos.',
+      'Der Hydraulikbagger benötigt eine planmäßige Inspektion.',
+    ],
   },
   nl: {
     code: 'nl',
@@ -35,13 +35,13 @@ export const SUPPORTED_LANGUAGES: Record<LanguageCode, LanguageMeta> = {
     nativeName: 'Nederlands',
     flag: '🇳🇱',
     speechCode: 'nl-NL',
-    placeholder: 'Typ of plak hier Nederlandse tekst...',
+    placeholder: 'Typ of plak hier Nederlandse tekst (max 1.000 tekens)...',
     samplePhrases: [
       'Goedemorgen! Hoe gaat het vandaag met je?',
       'Kunt u mij alstublieft helpen het dichtstbijzijnde treinstation te vinden?',
-      'Technologie brengt de wereld dichter bij elkaar.',
-      'Hartelijk dank voor je vriendelijke hulp!'
-    ]
+      'Gelijktijdige vertaling maakt wereldwijde samenwerking eenvoudig.',
+      'De hydraulische graafmachine vereist periodiek onderhoud.',
+    ],
   },
   id: {
     code: 'id',
@@ -49,14 +49,208 @@ export const SUPPORTED_LANGUAGES: Record<LanguageCode, LanguageMeta> = {
     nativeName: 'Bahasa Indonesia',
     flag: '🇮🇩',
     speechCode: 'id-ID',
-    placeholder: 'Ketik atau tempel teks bahasa Indonesia di sini...',
+    placeholder: 'Ketik atau tempel teks bahasa Indonesia di sini (hingga 1.000 karakter)...',
     samplePhrases: [
       'Selamat pagi! Bagaimana kabarmu hari ini?',
       'Bisakah Anda membantu saya menemukan stasiun kereta terdekat?',
-      'Teknologi membuat dunia lebih terhubung.',
-      'Terima kasih banyak atas bantuan dan kebaikan Anda!'
-    ]
-  }
+      'Penerjemahan simultan membuat kolaborasi global semakin lancar.',
+      'Ekskavator hidrolik memerlukan pemeliharaan terjadwal.',
+    ],
+  },
+  fr: {
+    code: 'fr',
+    name: 'French',
+    nativeName: 'Français',
+    flag: '🇫🇷',
+    speechCode: 'fr-FR',
+    placeholder: 'Tapez ou collez du texte en français ici (jusqu\'à 1 000 caractères)...',
+    samplePhrases: [
+      'Bonjour! Comment allez-vous aujourd\'hui?',
+      'Pouvez-vous m\'indiquer la gare la plus proche?',
+      'La traduction simultanée facilite la collaboration mondiale.',
+      'L\'excavatrice hydraulique nécessite un entretien préventif.',
+    ],
+  },
+  es: {
+    code: 'es',
+    name: 'Spanish',
+    nativeName: 'Español',
+    flag: '🇪🇸',
+    speechCode: 'es-ES',
+    placeholder: 'Escriba o pegue texto en español aquí (hasta 1.000 caracteres)...',
+    samplePhrases: [
+      '¡Buenos días! ¿Cómo estás hoy?',
+      '¿Puede decirme dónde está la estación más cercana?',
+      'La traducción simultánea facilita la colaboración global.',
+      'La excavadora hidráulica requiere mantenimiento periódico.',
+    ],
+  },
+  ja: {
+    code: 'ja',
+    name: 'Japanese',
+    nativeName: '日本語',
+    flag: '🇯🇵',
+    speechCode: 'ja-JP',
+    placeholder: 'ここに日本語を入力または貼り付け（最大1,000文字）...',
+    samplePhrases: [
+      'おはようございます！今日のご機嫌はいかがですか？',
+      '最寄りの駅はどこか教えていただけますか？',
+      '同時翻訳により、グローバルな共同作業が容易になります。',
+      '油圧ショベルは定期的なメンテナンスが必要です。',
+    ],
+  },
+  it: {
+    code: 'it',
+    name: 'Italian',
+    nativeName: 'Italiano',
+    flag: '🇮🇹',
+    speechCode: 'it-IT',
+    placeholder: 'Digita o incolla il testo in italiano qui (fino a 1.000 caratteri)...',
+    samplePhrases: [
+      'Buongiorno! Come va oggi?',
+      'Può aiutarmi a trovare la stazione ferroviaria più vicina?',
+      'La traduzione simultanea rende la collaborazione globale immediata.',
+      'L\'escavatore idraulico richiede una manutenzione programmata.',
+    ],
+  },
+  pt: {
+    code: 'pt',
+    name: 'Portuguese',
+    nativeName: 'Português',
+    flag: '🇵🇹',
+    speechCode: 'pt-PT',
+    placeholder: 'Digite ou cole o texto em português aqui (até 1.000 caracteres)...',
+    samplePhrases: [
+      'Bom dia! Como você está hoje?',
+      'Você pode me ajudar a encontrar a estação de trem mais próxima?',
+      'A tradução simultânea torna a colaboração global simples.',
+      'A escavadeira hidráulica requer manutenção preventiva.',
+    ],
+  },
+  zh: {
+    code: 'zh',
+    name: 'Chinese',
+    nativeName: '中文 (简体)',
+    flag: '🇨🇳',
+    speechCode: 'zh-CN',
+    placeholder: '在此键入或粘贴中文文本（最多 1,000 字符）...',
+    samplePhrases: [
+      '早上好！你今天过得怎么样？',
+      '请问最近的火车站怎么走？',
+      '实时同步翻译让全球协作更加高效无阻。',
+      '液压挖掘机需要进行定期维护检查。',
+    ],
+  },
+  ko: {
+    code: 'ko',
+    name: 'Korean',
+    nativeName: '한국어',
+    flag: '🇰🇷',
+    speechCode: 'ko-KR',
+    placeholder: '여기에 한국어 텍스트를 입력하거나 붙여넣으세요 (최대 1,000자)...',
+    samplePhrases: [
+      '좋은 아침입니다! 오늘 어떻게 지내세요?',
+      '가장 가까운 기차역이 어디인지 알려주시겠어요?',
+      '동시 번역을 통해 글로벌 협업이 더욱 편리해집니다.',
+      '유압 굴착기는 정기적인 정비가 필요합니다.',
+    ],
+  },
+  ar: {
+    code: 'ar',
+    name: 'Arabic',
+    nativeName: 'العربية',
+    flag: '🇸🇦',
+    speechCode: 'ar-SA',
+    placeholder: 'اكتب أو الصق النص بالعربية هنا (حتى 1000 حرف)...',
+    samplePhrases: [
+      'صباح الخير! كيف حالك اليوم؟',
+      'هل يمكنك مساعدتي في العثور على أقرب محطة قطار؟',
+      'الترجمة الفورية تجعل التعاون العالمي سهلاً وفعالاً.',
+      'الحفار الهيدروليكي يحتاج إلى صيانة دورية مجدولة.',
+    ],
+  },
+  ru: {
+    code: 'ru',
+    name: 'Russian',
+    nativeName: 'Русский',
+    flag: '🇷🇺',
+    speechCode: 'ru-RU',
+    placeholder: 'Введите русский текст здесь (до 1 000 символов)...',
+    samplePhrases: [
+      'Доброе утро! Как ваши дела сегодня?',
+      'Подскажите, пожалуйста, где ближайшая станция?',
+      'Синхронный перевод делает международное сотрудничество простым.',
+      'Гидравлический экскаватор требует планового техобслуживания.',
+    ],
+  },
+  pl: {
+    code: 'pl',
+    name: 'Polish',
+    nativeName: 'Polski',
+    flag: '🇵🇱',
+    speechCode: 'pl-PL',
+    placeholder: 'Wpisz lub wklej tekst po polsku (do 1 000 znaków)...',
+    samplePhrases: [
+      'Dzień dobry! Jak się dzisiaj masz?',
+      'Czy możesz pomóc mi znaleźć najbliższą stację kolejową?',
+      'Tłumaczenie symultaniczne ułatwia współpracę na całym świecie.',
+      'Koparka hydrauliczna wymaga planowej konserwacji.',
+    ],
+  },
+  tr: {
+    code: 'tr',
+    name: 'Turkish',
+    nativeName: 'Türkçe',
+    flag: '🇹🇷',
+    speechCode: 'tr-TR',
+    placeholder: 'Buraya Türkçe metin yazın veya yapıştırın (en fazla 1.000 karakter)...',
+    samplePhrases: [
+      'Günaydın! Bugün nasılsınız?',
+      'En yakın tren istasyonunu bulmama yardımcı olabilir misiniz?',
+      'Eşzamanlı çeviri küresel iş birliğini zahmetsiz hale getirir.',
+      'Hidrolik ekskavatörün periyodik bakıma ihtiyacı var.',
+    ],
+  },
+  vi: {
+    code: 'vi',
+    name: 'Vietnamese',
+    nativeName: 'Tiếng Việt',
+    flag: '🇻🇳',
+    speechCode: 'vi-VN',
+    placeholder: 'Nhập hoặc dán văn bản tiếng Việt vào đây (tối đa 1.000 ký tự)...',
+    samplePhrases: [
+      'Chào buổi sáng! Hôm nay bạn thế nào?',
+      'Bạn có thể chỉ giúp tôi ga tàu gần nhất không?',
+      'Dịch đồng thời giúp việc cộng tác toàn cầu trở nên dễ dàng.',
+      'Máy đào thủy lực cần được bảo dưỡng định kỳ.',
+    ],
+  },
 };
 
-export const LANGUAGE_KEYS: LanguageCode[] = ['en', 'de', 'nl', 'id'];
+export const DEFAULT_SLOT_LANGUAGES: [LanguageCode, LanguageCode, LanguageCode, LanguageCode] = [
+  'en',
+  'de',
+  'nl',
+  'id',
+];
+
+export const ALL_LANGUAGES: LanguageCode[] = [
+  'en',
+  'de',
+  'nl',
+  'id',
+  'fr',
+  'es',
+  'ja',
+  'it',
+  'pt',
+  'zh',
+  'ko',
+  'ar',
+  'ru',
+  'pl',
+  'tr',
+  'vi',
+];
+
+export const LANGUAGE_KEYS: LanguageCode[] = ALL_LANGUAGES;

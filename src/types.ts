@@ -1,4 +1,20 @@
-export type LanguageCode = 'en' | 'de' | 'nl' | 'id';
+export type LanguageCode =
+  | 'en'
+  | 'de'
+  | 'nl'
+  | 'id'
+  | 'fr'
+  | 'es'
+  | 'ja'
+  | 'it'
+  | 'pt'
+  | 'zh'
+  | 'ko'
+  | 'ar'
+  | 'ru'
+  | 'pl'
+  | 'tr'
+  | 'vi';
 
 export interface LanguageMeta {
   code: LanguageCode;
