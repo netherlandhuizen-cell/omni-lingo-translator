@@ -113,10 +113,10 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
 
   return (
     <div
-      className={`group relative rounded-3xl backdrop-blur-md transition-all duration-300 flex flex-col overflow-visible ${
+      className={`group relative rounded-3xl backdrop-blur-md transition-all duration-300 flex flex-col overflow-visible shadow-2xl ${
         isSource
-          ? 'bg-white/70 dark:bg-slate-950/55 border border-amber-500/70 dark:border-amber-400/60 shadow-2xl shadow-amber-950/20 dark:shadow-black/60 ring-2 ring-amber-500/30 dark:ring-amber-400/30'
-          : 'bg-white/60 dark:bg-slate-950/45 border border-white/60 dark:border-white/10 hover:border-amber-500/40 dark:hover:border-amber-500/35 shadow-xl shadow-slate-900/5 dark:shadow-black/50'
+          ? 'bg-white/55 dark:bg-slate-900/50 border border-amber-500/70 dark:border-amber-400/60 ring-2 ring-amber-500/30 dark:ring-amber-400/30 shadow-amber-950/20'
+          : 'bg-white/40 dark:bg-slate-900/40 border border-white/60 dark:border-white/10 hover:border-amber-500/40 dark:hover:border-amber-400/40'
       }`}
     >
       {/* Top subtle glow line on active source card */}
@@ -131,7 +131,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
           <button
             type="button"
             onClick={() => setIsDropdownOpen((prev) => !prev)}
-            className="flex items-center gap-2.5 px-2.5 py-1.5 -ml-2 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800/80 border border-transparent hover:border-slate-200/90 dark:hover:border-amber-500/30 transition-all cursor-pointer group select-none"
+            className="flex items-center gap-2.5 px-2.5 py-1.5 -ml-2 rounded-2xl hover:bg-white/40 dark:hover:bg-slate-800/80 border border-transparent hover:border-white/40 dark:hover:border-amber-500/30 transition-all cursor-pointer group select-none"
             title="Click to change language for this box"
             aria-expanded={isDropdownOpen}
             aria-haspopup="listbox"
@@ -140,10 +140,10 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
               {meta.flag}
             </span>
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors">
+              <h2 className="text-base font-extrabold text-slate-900 dark:text-white tracking-tight group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors">
                 {meta.name}
               </h2>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-amber-300 font-semibold border border-slate-200/70 dark:border-amber-500/20 uppercase tracking-wide">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/40 dark:bg-slate-800/80 text-slate-700 dark:text-amber-300 font-bold border border-white/40 dark:border-white/10 uppercase tracking-wider">
                 {meta.code}
               </span>
               <ChevronDown
@@ -261,7 +261,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
           onChange={(e) => onChange(e.target.value)}
           placeholder={meta.placeholder}
           aria-label={`${meta.name} translation`}
-          className="auto-expand-textarea w-full bg-transparent text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 text-[15px] sm:text-base leading-relaxed focus:outline-none transition-colors duration-100 font-normal overflow-y-auto"
+          className="auto-expand-textarea w-full bg-transparent text-slate-900 dark:text-slate-100 placeholder:text-slate-500/80 dark:placeholder:text-slate-400/60 text-base sm:text-[17px] leading-relaxed focus:outline-none transition-colors duration-100 font-normal overflow-y-auto"
         />
 
         {/* Minimal Voice Dictation Indicator */}
@@ -278,7 +278,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
       </div>
 
       {/* Refined Bottom Actions */}
-      <div className="px-5 py-3 bg-white/40 dark:bg-slate-950/30 rounded-b-3xl border-t border-slate-200/50 dark:border-white/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+      <div className="px-5 py-3 bg-white/30 dark:bg-slate-950/25 rounded-b-3xl border-t border-white/20 dark:border-white/10 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
         {/* Action icons */}
         <div className="flex items-center gap-1.5">
           {/* Copy Button */}

@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleDarkMode,
 }) => {
   return (
-    <header className="relative w-full border-b border-slate-200/50 dark:border-white/10 bg-white/60 dark:bg-slate-950/50 backdrop-blur-md sticky top-0 z-30 transition-colors shadow-xs dark:shadow-black/40">
+    <header className="relative w-full border-b border-white/20 dark:border-white/10 bg-white/40 dark:bg-slate-950/40 backdrop-blur-md sticky top-0 z-30 transition-colors shadow-xs dark:shadow-black/40">
       {/* Top subtle warm neon line */}
       <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-85" />
 
