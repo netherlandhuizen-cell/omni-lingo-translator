@@ -5,6 +5,7 @@ import { QuickPhrases } from './components/QuickPhrases';
 import { SettingsModal } from './components/SettingsModal';
 import { FeedbackModal } from './components/FeedbackModal';
 import { VisualReferenceCard } from './components/VisualReferenceCard';
+import { ArchipelagoAtmosphere } from './components/ArchipelagoAtmosphere';
 import { useMultiTranslator } from './hooks/useMultiTranslator';
 import { useVisualReference } from './hooks/useVisualReference';
 import type { LanguageCode } from './types';
@@ -75,19 +76,22 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#070d14] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-150 relative selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden">
+    <div className="min-h-screen bg-[#faf7f2] dark:bg-gradient-to-b dark:from-[#080f1a] dark:via-[#060b13] dark:to-[#0a0c16] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-150 relative selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden">
+      {/* Artistic Fixed Archipelago Atmosphere: Island silhouettes, nautical contours, tropical fronds & sunset gradients */}
+      <ArchipelagoAtmosphere />
+
       {/* Ambient archipelago highlights (Warm Golden Amber & Tropical Emerald) */}
       <div
         aria-hidden="true"
-        className="fixed top-[-10%] left-[15%] w-[650px] h-[550px] rounded-full pointer-events-none bg-amber-500/10 dark:bg-amber-500/12 blur-[140px]"
+        className="fixed top-[-10%] left-[15%] w-[650px] h-[550px] rounded-full pointer-events-none bg-amber-500/10 dark:bg-amber-500/12 blur-[140px] z-0"
       />
       <div
         aria-hidden="true"
-        className="fixed top-[45%] right-[10%] w-[550px] h-[550px] rounded-full pointer-events-none bg-emerald-500/8 dark:bg-emerald-500/10 blur-[130px]"
+        className="fixed top-[45%] right-[10%] w-[550px] h-[550px] rounded-full pointer-events-none bg-emerald-500/8 dark:bg-emerald-500/10 blur-[130px] z-0"
       />
       <div
         aria-hidden="true"
-        className="fixed bottom-[-10%] left-[25%] w-[600px] h-[400px] rounded-full pointer-events-none bg-orange-600/8 dark:bg-orange-600/8 blur-[140px]"
+        className="fixed bottom-[-10%] left-[25%] w-[600px] h-[400px] rounded-full pointer-events-none bg-orange-600/8 dark:bg-orange-600/8 blur-[140px] z-0"
       />
 
       {/* Refined Minimal Header */}
@@ -102,7 +106,7 @@ export function App() {
       />
 
       {/* Main Container with generous, luxurious spacing */}
-      <main className="relative flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 py-8 flex flex-col justify-start">
+      <main className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 py-8 flex flex-col justify-start">
         {/* Subtle Quick Prompts Bar */}
         <QuickPhrases onSelectPhrase={handleSetSample} />
 
@@ -146,7 +150,7 @@ export function App() {
       </main>
 
       {/* Nusantara Studio Status Footer */}
-      <footer className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-slate-200/80 dark:border-amber-500/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+      <footer className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-slate-200/80 dark:border-amber-500/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
