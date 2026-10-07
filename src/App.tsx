@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { TranslationCard } from './components/TranslationCard';
-import { QuickPhrases } from './components/QuickPhrases';
 import { SettingsModal } from './components/SettingsModal';
 import { FeedbackModal } from './components/FeedbackModal';
 import { VisualReferenceCard } from './components/VisualReferenceCard';
@@ -107,29 +106,16 @@ export function App() {
 
       {/* Main Container with generous, luxurious spacing */}
       <main className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-start">
-        {/* Cinematic Archipelago Hero Header */}
-        <div className="mb-8 flex flex-col items-center text-center max-w-3xl mx-auto pt-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/40 dark:bg-slate-900/40 backdrop-blur-md border border-white/50 dark:border-white/10 text-[11px] font-mono uppercase tracking-widest text-amber-700 dark:text-amber-300 font-bold mb-3.5 shadow-xl">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Nusantara Synchronous Studio</span>
-            <span className="text-slate-400 dark:text-white/20">•</span>
-            <span>16 Dynamic Languages</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-3">
-            Cross-Border Studio Across the{' '}
-            <span className="bg-gradient-to-r from-amber-500 via-orange-400 to-emerald-400 bg-clip-text text-transparent">
-              Archipelago
-            </span>
+        {/* Centerpiece Hero Title */}
+        <div className="mb-8 sm:mb-10 flex flex-col items-center text-center max-w-3xl mx-auto pt-2 sm:pt-4">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-md mb-3 select-none">
+            Akeh<span className="bg-gradient-to-r from-amber-500 via-orange-400 to-emerald-400 bg-clip-text text-transparent">Boso</span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 max-w-xl font-normal leading-relaxed drop-shadow-xs">
-            Real-time 4-way translation synchronized across every card, backed by live technical visual intelligence.
+          <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-slate-700 dark:text-amber-300/90 font-semibold drop-shadow-xs">
+            Nusantara 4-Way Synchronous Workspace
           </p>
         </div>
-
-        {/* Subtle Quick Prompts Bar */}
-        <QuickPhrases onSelectPhrase={handleSetSample} />
 
         {/* 2x2 Grid of the 4 Dynamic Translation Cards */}
         <section
