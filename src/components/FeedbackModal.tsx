@@ -134,16 +134,16 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
      */
 
     try {
-      const existing = localStorage.getItem('omni_user_feedback');
+      const existing = localStorage.getItem('akehboso_user_feedback') || localStorage.getItem('omni_user_feedback');
       const feedbackList: FeedbackRecord[] = existing ? JSON.parse(existing) : [];
       feedbackList.push(feedbackEntry);
-      localStorage.setItem('omni_user_feedback', JSON.stringify(feedbackList));
+      localStorage.setItem('akehboso_user_feedback', JSON.stringify(feedbackList));
     } catch (err) {
       console.warn('Could not persist feedback to localStorage:', err);
     }
 
     // Log neatly to the developer console for instant inspection
-    console.info('[OmniLingo Feedback Recorded]', feedbackEntry);
+    console.info('[AkehBoso Feedback Recorded]', feedbackEntry);
 
     // Simulate brief network transition for smooth UX
     setTimeout(() => {
@@ -164,14 +164,14 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-lg bg-white/95 dark:bg-[#0c1427]/95 rounded-3xl shadow-2xl shadow-cyan-950/30 border border-slate-200/90 dark:border-cyan-500/25 overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-150">
-        {/* Subtle top neon ambient line */}
-        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80" />
+      <div className="relative w-full max-w-lg bg-white/95 dark:bg-[#0c131a]/95 rounded-3xl shadow-2xl shadow-amber-950/30 border border-slate-200/90 dark:border-amber-500/25 overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-150">
+        {/* Subtle top amber/emerald ambient line */}
+        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-80" />
 
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-slate-100 dark:border-cyan-500/15 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-slate-100 dark:border-amber-500/15 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
               <MessageSquare className="w-4 h-4" />
             </div>
             <div>
@@ -179,7 +179,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
                 Feedback & Suggestions
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Help us refine OmniLingo and shape upcoming features
+                Help us refine AkehBoso and shape upcoming features
               </p>
             </div>
           </div>
@@ -195,18 +195,18 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
         {isSubmitted ? (
           /* Thank You State */
           <div className="p-8 flex flex-col items-center justify-center text-center animate-in fade-in zoom-in-95 duration-200">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500/20 via-teal-500/20 to-cyan-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-500 dark:text-emerald-400 mb-4 shadow-lg shadow-emerald-500/10">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500/20 via-emerald-500/20 to-teal-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-500 dark:text-emerald-400 mb-4 shadow-lg shadow-emerald-500/10">
               <Check className="w-8 h-8 animate-in zoom-in duration-300" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1.5">
               Thank you for your feedback!
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed mb-6">
-              Your suggestion has been logged and will help us make OmniLingo even better.
+              Your suggestion has been logged and will help us make AkehBoso even better.
             </p>
             <button
               onClick={onClose}
-              className="px-5 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-white dark:bg-cyan-500 dark:text-slate-950 hover:bg-slate-800 dark:hover:bg-cyan-400 transition-all cursor-pointer active:scale-95 shadow-md shadow-cyan-500/20"
+              className="px-5 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-white dark:bg-amber-400 dark:text-slate-950 hover:bg-slate-800 dark:hover:bg-amber-300 transition-all cursor-pointer active:scale-95 shadow-md shadow-amber-500/20 font-bold"
             >
               Done
             </button>
@@ -230,20 +230,20 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
                       onClick={() => setCategory(cat.id)}
                       className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col gap-1 ${
                         isSelected
-                          ? 'border-cyan-500/60 bg-cyan-500/10 dark:bg-cyan-500/15 ring-1 ring-cyan-500/30'
-                          : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-[#080e1c]/50'
+                          ? 'border-amber-500/60 bg-amber-500/10 dark:bg-amber-500/15 ring-1 ring-amber-500/30'
+                          : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-[#080d14]/50'
                       }`}
                     >
                       <div className="flex items-center gap-1.5">
                         <Icon
                           className={`w-3.5 h-3.5 ${
-                            isSelected ? 'text-cyan-600 dark:text-cyan-300' : 'text-slate-400'
+                            isSelected ? 'text-amber-600 dark:text-amber-400' : 'text-slate-400'
                           }`}
                         />
                         <span
                           className={`text-xs font-bold tracking-tight ${
                             isSelected
-                              ? 'text-cyan-950 dark:text-cyan-100'
+                              ? 'text-amber-950 dark:text-amber-100'
                               : 'text-slate-800 dark:text-slate-200'
                           }`}
                         >
@@ -286,7 +286,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
                     : 'Share your thoughts, suggestions, or comments...'
                 }
                 rows={4}
-                className="w-full p-3.5 text-xs sm:text-sm rounded-2xl bg-white dark:bg-[#070d18] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all resize-none"
+                className="w-full p-3.5 text-xs sm:text-sm rounded-2xl bg-white dark:bg-[#070d14] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/30 transition-all resize-none"
               />
               {error && <p className="text-xs text-rose-500 mt-1 font-medium">{error}</p>}
             </div>
@@ -304,12 +304,12 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com (for follow-ups)"
-                className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl bg-white dark:bg-[#070d18] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all"
+                className="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl bg-white dark:bg-[#070d14] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/30 transition-all"
               />
             </div>
 
             {/* Actions */}
-            <div className="pt-2 flex items-center justify-end gap-2.5 border-t border-slate-100 dark:border-cyan-500/10">
+            <div className="pt-2 flex items-center justify-end gap-2.5 border-t border-slate-100 dark:border-amber-500/10">
               <button
                 type="button"
                 onClick={onClose}
@@ -323,7 +323,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
                 className={`inline-flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 ${
                   isSubmitting || !message.trim()
                     ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed shadow-none'
-                    : 'bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 text-slate-950 hover:brightness-105 shadow-cyan-500/20 cursor-pointer'
+                    : 'bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 text-slate-950 hover:brightness-105 shadow-amber-500/20 cursor-pointer font-bold'
                 }`}
               >
                 <Send className="w-3.5 h-3.5" />

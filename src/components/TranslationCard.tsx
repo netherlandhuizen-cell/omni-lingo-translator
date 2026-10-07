@@ -115,23 +115,23 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
     <div
       className={`group relative rounded-3xl bg-white/95 dark:bg-[#0c1427]/85 backdrop-blur-2xl border transition-all duration-300 flex flex-col overflow-visible ${
         isSource
-          ? 'border-cyan-500/60 dark:border-cyan-400/60 shadow-xl shadow-cyan-950/20 dark:shadow-cyan-950/40 ring-2 ring-cyan-500/25 dark:ring-cyan-400/20'
-          : 'border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-cyan-500/30 shadow-md shadow-slate-950/5 dark:shadow-2xl'
+          ? 'border-amber-500/60 dark:border-amber-400/60 shadow-xl shadow-amber-950/20 dark:shadow-amber-950/40 ring-2 ring-amber-500/25 dark:ring-amber-400/20'
+          : 'border-slate-200/90 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-amber-500/30 shadow-md shadow-slate-950/5 dark:shadow-2xl'
       }`}
     >
       {/* Top subtle glow line on active source card */}
       {isSource && (
-        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 dark:via-cyan-400 to-transparent opacity-90 rounded-t-3xl" />
+        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 dark:via-amber-400 to-transparent opacity-90 rounded-t-3xl" />
       )}
 
       {/* Top Header with Compact Dynamic Language Dropdown */}
-      <div className="px-6 py-4 flex items-center justify-between border-b border-slate-100 dark:border-cyan-500/10">
+      <div className="px-6 py-4 flex items-center justify-between border-b border-slate-100 dark:border-amber-500/10">
         {/* Dynamic Language Selector Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
             type="button"
             onClick={() => setIsDropdownOpen((prev) => !prev)}
-            className="flex items-center gap-2.5 px-2.5 py-1.5 -ml-2 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800/80 border border-transparent hover:border-slate-200/90 dark:hover:border-cyan-500/30 transition-all cursor-pointer group select-none"
+            className="flex items-center gap-2.5 px-2.5 py-1.5 -ml-2 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800/80 border border-transparent hover:border-slate-200/90 dark:hover:border-amber-500/30 transition-all cursor-pointer group select-none"
             title="Click to change language for this box"
             aria-expanded={isDropdownOpen}
             aria-haspopup="listbox"
@@ -140,15 +140,15 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
               {meta.flag}
             </span>
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors">
                 {meta.name}
               </h2>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-cyan-300 font-semibold border border-slate-200/70 dark:border-cyan-500/20 uppercase tracking-wide">
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-amber-300 font-semibold border border-slate-200/70 dark:border-amber-500/20 uppercase tracking-wide">
                 {meta.code}
               </span>
               <ChevronDown
-                className={`w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-500 transition-transform duration-200 ${
-                  isDropdownOpen ? 'rotate-180 text-cyan-500' : ''
+                className={`w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 transition-transform duration-200 ${
+                  isDropdownOpen ? 'rotate-180 text-amber-500' : ''
                 }`}
               />
             </div>
@@ -158,10 +158,10 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
           {isDropdownOpen && (
             <div
               role="listbox"
-              className="absolute top-full left-0 mt-2 w-64 max-h-80 rounded-2xl bg-white/95 dark:bg-[#0c1427]/95 backdrop-blur-2xl border border-slate-200/90 dark:border-cyan-500/30 shadow-2xl shadow-cyan-950/30 z-50 overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150"
+              className="absolute top-full left-0 mt-2 w-64 max-h-80 rounded-2xl bg-white/95 dark:bg-[#0c1427]/95 backdrop-blur-2xl border border-slate-200/90 dark:border-amber-500/30 shadow-2xl shadow-amber-950/30 z-50 overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150"
             >
               {/* Search Filter Header */}
-              <div className="p-2.5 border-b border-slate-100 dark:border-cyan-500/15 bg-slate-50/70 dark:bg-[#080e1b]/70">
+              <div className="p-2.5 border-b border-slate-100 dark:border-amber-500/15 bg-slate-50/70 dark:bg-[#080e1b]/70">
                 <div className="relative flex items-center">
                   <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
                   <input
@@ -170,7 +170,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
                     value={searchFilter}
                     onChange={(e) => setSearchFilter(e.target.value)}
                     placeholder="Search language..."
-                    className="w-full pl-8 pr-2.5 py-1 text-xs rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-cyan-500/50"
+                    className="w-full pl-8 pr-2.5 py-1 text-xs rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-amber-500/50"
                   />
                 </div>
               </div>
@@ -193,8 +193,8 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
                       }}
                       className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-colors cursor-pointer text-left ${
                         isSelected
-                          ? 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 font-bold border border-cyan-500/30'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-cyan-600 dark:hover:text-cyan-300'
+                          ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 font-bold border border-amber-500/30'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-amber-600 dark:hover:text-amber-300'
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -213,7 +213,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
                         <span className="text-[10px] font-mono uppercase text-slate-400 font-semibold">
                           {itemMeta.code}
                         </span>
-                        {isSelected && <Check className="w-3.5 h-3.5 text-cyan-500" />}
+                        {isSelected && <Check className="w-3.5 h-3.5 text-amber-500" />}
                       </div>
                     </button>
                   );
@@ -226,8 +226,8 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
         {/* Dynamic Status & Card Clear */}
         <div className="flex items-center gap-2">
           {isLoading ? (
-            <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300">
-              <Loader2 className="w-3 h-3 animate-spin text-cyan-500" />
+            <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-300">
+              <Loader2 className="w-3 h-3 animate-spin text-amber-500" />
               <span className="text-[10px] font-mono uppercase tracking-wider font-semibold">syncing</span>
             </div>
           ) : isSource && text ? (
@@ -278,7 +278,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
       </div>
 
       {/* Refined Bottom Actions */}
-      <div className="px-5 py-3 bg-slate-50/80 dark:bg-[#080e1b]/80 rounded-b-3xl border-t border-slate-100 dark:border-cyan-500/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+      <div className="px-5 py-3 bg-slate-50/80 dark:bg-[#080d14]/80 rounded-b-3xl border-t border-slate-100 dark:border-amber-500/10 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
         {/* Action icons */}
         <div className="flex items-center gap-1.5">
           {/* Copy Button */}
@@ -290,7 +290,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
               isCopied
                 ? 'text-emerald-600 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/30'
                 : text
-                ? 'text-slate-600 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-300 hover:bg-slate-200/60 dark:hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/20 cursor-pointer active:scale-95'
+                ? 'text-slate-600 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-300 hover:bg-slate-200/60 dark:hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 cursor-pointer active:scale-95'
                 : 'text-slate-300 dark:text-slate-700 cursor-not-allowed border border-transparent'
             }`}
           >
@@ -314,9 +314,9 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
             title={isSpeaking ? 'Stop playback' : `Pronounce in ${meta.name}`}
             className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
               isSpeaking
-                ? 'text-cyan-600 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-500/40'
+                ? 'text-amber-600 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border border-amber-500/40'
                 : text
-                ? 'text-slate-600 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-300 hover:bg-slate-200/60 dark:hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/20 cursor-pointer active:scale-95'
+                ? 'text-slate-600 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-300 hover:bg-slate-200/60 dark:hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 cursor-pointer active:scale-95'
                 : 'text-slate-300 dark:text-slate-700 cursor-not-allowed border border-transparent'
             }`}
           >

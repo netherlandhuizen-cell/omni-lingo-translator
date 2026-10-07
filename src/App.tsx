@@ -75,11 +75,11 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#060b15] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-150 relative selection:bg-cyan-500 selection:text-slate-950 overflow-x-hidden">
-      {/* Ambient glowing highlights (Deep-slate & Cyan/Emerald Developer Glow) */}
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#070d14] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-150 relative selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden">
+      {/* Ambient archipelago highlights (Warm Golden Amber & Tropical Emerald) */}
       <div
         aria-hidden="true"
-        className="fixed top-[-10%] left-[15%] w-[650px] h-[550px] rounded-full pointer-events-none bg-cyan-500/10 dark:bg-cyan-500/12 blur-[140px]"
+        className="fixed top-[-10%] left-[15%] w-[650px] h-[550px] rounded-full pointer-events-none bg-amber-500/10 dark:bg-amber-500/12 blur-[140px]"
       />
       <div
         aria-hidden="true"
@@ -87,7 +87,7 @@ export function App() {
       />
       <div
         aria-hidden="true"
-        className="fixed bottom-[-10%] left-[25%] w-[600px] h-[400px] rounded-full pointer-events-none bg-blue-600/8 dark:bg-blue-600/10 blur-[140px]"
+        className="fixed bottom-[-10%] left-[25%] w-[600px] h-[400px] rounded-full pointer-events-none bg-orange-600/8 dark:bg-orange-600/8 blur-[140px]"
       />
 
       {/* Refined Minimal Header */}
@@ -145,21 +145,21 @@ export function App() {
         />
       </main>
 
-      {/* High-tech Status Footer */}
-      <footer className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-slate-200/80 dark:border-cyan-500/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+      {/* Nusantara Studio Status Footer */}
+      <footer className="relative w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 border-t border-slate-200/80 dark:border-amber-500/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Systems Online</span>
+            <span>AkehBoso Online</span>
           </div>
           <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
           <span className="font-mono text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-400">{settings.provider} neural engine</span>
           <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
-          <span className="text-[11px] text-cyan-600 dark:text-cyan-400 font-medium">Vision Inspector Active</span>
+          <span className="text-[11px] text-amber-600 dark:text-amber-400 font-medium">Nusantara-Connected Studio</span>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="text-slate-400 dark:text-slate-500 font-mono text-[11px] px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800">
+          <div className="text-amber-700 dark:text-amber-300 font-mono text-[11px] px-2.5 py-0.5 rounded-md bg-amber-500/10 dark:bg-amber-950/40 border border-amber-500/30">
             {slotLanguages.map((l) => l.toUpperCase()).join(' ⇄ ')}
           </div>
         </div>

@@ -69,14 +69,14 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
   const currentSampleTerms = activeCategoryMeta.sampleTerms;
 
   return (
-    <div className="relative w-full mt-8 rounded-3xl bg-white/95 dark:bg-[#0c1427]/90 backdrop-blur-2xl border border-slate-200/90 dark:border-cyan-500/25 shadow-2xl shadow-cyan-950/10 dark:shadow-cyan-950/30 overflow-hidden transition-all duration-300">
+    <div className="relative w-full mt-8 rounded-3xl bg-white/95 dark:bg-[#0c1427]/90 backdrop-blur-2xl border border-slate-200/90 dark:border-amber-500/25 shadow-2xl shadow-amber-950/10 dark:shadow-amber-950/30 overflow-hidden transition-all duration-300">
       {/* Top Ambient Neon Border Glow */}
-      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 dark:via-cyan-400 to-transparent opacity-80" />
+      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 dark:via-amber-400 to-transparent opacity-80" />
 
       {/* Top Header */}
-      <div className="px-6 py-4 border-b border-slate-100 dark:border-cyan-500/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="px-6 py-4 border-b border-slate-100 dark:border-amber-500/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-400 text-slate-950 shadow-md shadow-cyan-500/30 ring-1 ring-cyan-300/40">
+          <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-400 to-emerald-400 text-slate-950 shadow-md shadow-amber-500/30 ring-1 ring-amber-300/40">
             <Cpu className="w-4 h-4 text-slate-950 font-bold" />
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -89,8 +89,8 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
               <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight">
                 Visual Reference & Equipment Inspector
               </h3>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider font-semibold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
                 Live Sync
               </span>
             </div>
@@ -133,9 +133,9 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
       </div>
 
       {/* Vibrant Industry Theme Selector Bar */}
-      <div className="px-6 py-3 bg-slate-50/80 dark:bg-[#080d1a]/60 border-b border-slate-100 dark:border-cyan-500/10 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
+      <div className="px-6 py-3 bg-slate-50/80 dark:bg-[#080d14]/60 border-b border-slate-100 dark:border-amber-500/10 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
         <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 mr-1 select-none flex-shrink-0 font-semibold flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-cyan-400" />
+          <Sparkles className="w-3 h-3 text-amber-400" />
           Industry Theme:
         </span>
         {INDUSTRY_KEYS.map((catKey) => {
@@ -147,8 +147,8 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
               onClick={() => onSelectCategory(catKey)}
               className={`flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 cursor-pointer ${
                 isSelected
-                  ? 'bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 text-slate-950 font-bold shadow-md shadow-cyan-500/25 ring-1 ring-cyan-300/50 scale-102'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900/80 border border-slate-200/90 dark:border-slate-800 hover:border-cyan-400/50'
+                  ? 'bg-gradient-to-r from-amber-500 via-orange-400 to-emerald-400 text-slate-950 font-bold shadow-md shadow-amber-500/25 ring-1 ring-amber-300/50 scale-102'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-900/80 border border-slate-200/90 dark:border-slate-800 hover:border-amber-400/50'
               }`}
             >
               <span>{catMeta.icon}</span>
@@ -163,13 +163,13 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
         {isLoading ? (
           /* Live Shimmer Loading State */
           <div className="flex flex-col md:flex-row gap-6 items-center">
-            <div className="w-full md:w-80 h-56 rounded-2xl bg-gradient-to-tr from-slate-200 to-slate-100 dark:from-slate-900 dark:to-slate-800 border border-cyan-500/20 animate-pulse flex-shrink-0 flex items-center justify-center">
-              <Loader2 className="w-6 h-6 animate-spin text-cyan-400" />
+            <div className="w-full md:w-80 h-56 rounded-2xl bg-gradient-to-tr from-slate-200 to-slate-100 dark:from-slate-900 dark:to-slate-800 border border-amber-500/20 animate-pulse flex-shrink-0 flex items-center justify-center">
+              <Loader2 className="w-6 h-6 animate-spin text-amber-400" />
             </div>
             <div className="flex-1 w-full space-y-3.5">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-                <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono font-semibold">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+                <span className="text-xs text-amber-600 dark:text-amber-400 font-mono font-semibold">
                   Inspecting {activeCategoryMeta.shortLabel.toLowerCase()} equipment for "{searchTerm}"...
                 </span>
               </div>
@@ -186,7 +186,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
             <div className="flex flex-col w-full md:w-80 flex-shrink-0">
               <div
                 onClick={() => !hasImgError && setIsLightboxOpen(true)}
-                className={`group relative w-full h-56 rounded-2xl overflow-hidden bg-slate-950 border border-cyan-500/30 shadow-xl shadow-cyan-950/30 ${
+                className={`group relative w-full h-56 rounded-2xl overflow-hidden bg-slate-950 border border-amber-500/30 shadow-xl shadow-amber-950/30 ${
                   hasImgError ? 'flex items-center justify-center p-4' : 'cursor-zoom-in'
                 }`}
               >
@@ -207,7 +207,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
                     {/* Top Floating Badge */}
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-cyan-400/40 text-[10px] font-mono font-semibold text-cyan-300 flex items-center gap-1.5 shadow-md">
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-amber-400/40 text-[10px] font-mono font-semibold text-amber-300 flex items-center gap-1.5 shadow-md">
                       <span>{activeCategoryMeta.icon}</span>
                       <span className="uppercase">{data.category}</span>
                     </div>
@@ -215,7 +215,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
                     {/* Enlarge Tooltip */}
                     <div className="absolute inset-0 flex items-end p-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
                       <span className="text-[11px] font-semibold text-white bg-slate-950/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/20 flex items-center gap-1.5 shadow-md">
-                        <Maximize2 className="w-3.5 h-3.5 text-cyan-400" />
+                        <Maximize2 className="w-3.5 h-3.5 text-amber-400" />
                         Click to enlarge
                       </span>
                     </div>
@@ -223,13 +223,13 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
                 ) : (
                   /* Holographic Fallback Card */
                   <div className="flex flex-col items-center justify-center text-center p-5">
-                    <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center text-2xl mb-2.5 shadow-inner">
+                    <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-2xl mb-2.5 shadow-inner">
                       {activeCategoryMeta.icon}
                     </div>
                     <span className="text-sm font-bold text-slate-100 tracking-tight">
                       {data.title}
                     </span>
-                    <span className="text-[11px] text-cyan-400 font-mono mt-1">
+                    <span className="text-[11px] text-amber-400 font-mono mt-1">
                       {data.categoryLabel}
                     </span>
                   </div>
@@ -239,7 +239,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
               {/* Caption Beneath Picture */}
               <div className="mt-2.5 px-1 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
                 <span className="truncate">
-                  Searched: <strong className="text-cyan-700 dark:text-cyan-300 font-bold">{data.query}</strong>
+                  Searched: <strong className="text-amber-700 dark:text-amber-300 font-bold">{data.query}</strong>
                 </span>
                 <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                   {data.source}
@@ -251,7 +251,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
             <div className="flex-1 flex flex-col justify-between self-stretch">
               <div>
                 <div className="flex items-center gap-2 mb-2 flex-wrap">
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 font-bold border border-cyan-500/30">
+                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 font-bold border border-amber-500/30">
                     DETECTED // {data.query.toUpperCase()}
                   </span>
                   <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-bold border border-emerald-500/30">
@@ -269,9 +269,9 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
               </div>
 
               {/* Multilingual Nomenclature Grid */}
-              <div className="pt-3.5 border-t border-slate-100 dark:border-cyan-500/15">
-                <div className="text-[11px] font-bold text-slate-400 dark:text-cyan-400/80 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+              <div className="pt-3.5 border-t border-slate-100 dark:border-amber-500/15">
+                <div className="text-[11px] font-bold text-slate-400 dark:text-amber-400/80 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                   Multilingual Equipment Nomenclature
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
@@ -281,14 +281,14 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
                     return (
                       <div
                         key={code}
-                        className="p-2.5 rounded-xl bg-slate-50 dark:bg-[#070e1c]/80 border border-slate-200/80 dark:border-cyan-500/20 hover:border-cyan-400/50 transition-all shadow-xs"
+                        className="p-2.5 rounded-xl bg-slate-50 dark:bg-[#070e1c]/80 border border-slate-200/80 dark:border-amber-500/20 hover:border-amber-400/50 transition-all shadow-xs"
                       >
                         <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 font-semibold">
                           <span className="text-sm">{meta.flag}</span>
                           <span>{meta.name}</span>
                         </div>
                         <div
-                          className="font-bold text-slate-900 dark:text-cyan-100 truncate mt-1 text-xs"
+                          className="font-bold text-slate-900 dark:text-amber-100 truncate mt-1 text-xs"
                           title={val || '-'}
                         >
                           {val || '-'}
@@ -303,7 +303,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
         ) : (
           /* Empty Placeholder State */
           <div className="py-10 flex flex-col items-center text-center justify-center">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500/10 via-teal-500/10 to-emerald-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-3.5 shadow-lg shadow-cyan-950/20">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500/10 via-orange-500/10 to-emerald-500/10 border border-amber-500/30 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-3.5 shadow-lg shadow-amber-950/20">
               <Search className="w-6 h-6 animate-pulse" />
             </div>
 
@@ -323,7 +323,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
                 <button
                   key={term}
                   onClick={() => onSelectSampleTerm(term)}
-                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900/90 hover:bg-cyan-50 dark:hover:bg-cyan-950/40 border border-slate-200 dark:border-slate-800 hover:border-cyan-400/60 text-slate-800 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-300 transition-all cursor-pointer active:scale-95 shadow-2xs"
+                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900/90 hover:bg-amber-50 dark:hover:bg-amber-950/40 border border-slate-200 dark:border-slate-800 hover:border-amber-400/60 text-slate-800 dark:text-slate-200 hover:text-amber-600 dark:hover:text-amber-300 transition-all cursor-pointer active:scale-95 shadow-2xs"
                 >
                   {term}
                 </button>
@@ -341,11 +341,11 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl max-h-[90vh] bg-slate-950 rounded-2xl overflow-hidden border border-cyan-500/30 shadow-2xl flex flex-col"
+            className="relative max-w-4xl max-h-[90vh] bg-slate-950 rounded-2xl overflow-hidden border border-amber-500/30 shadow-2xl flex flex-col"
           >
             <div className="p-3.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-200">
               <div className="flex items-center gap-2 font-bold">
-                <span className="text-cyan-400 font-mono">[HIGH-RES]</span>
+                <span className="text-amber-400 font-mono">[HIGH-RES]</span>
                 <span>{data.title}</span>
               </div>
               <button
@@ -367,7 +367,7 @@ export const VisualReferenceCard: React.FC<VisualReferenceCardProps> = ({
                 href={imgSrc || data.imageUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="underline inline-flex items-center gap-1 text-cyan-300 font-semibold hover:text-cyan-200"
+                className="underline inline-flex items-center gap-1 text-amber-300 font-semibold hover:text-amber-200"
               >
                 Open Full Size <ExternalLink className="w-3 h-3" />
               </a>

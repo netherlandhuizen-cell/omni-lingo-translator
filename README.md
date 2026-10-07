@@ -1,35 +1,39 @@
-# 🌐 OmniLingo 4X — Real-Time Multi-Language Translation Web App
+# 🌏 AkehBoso — Nusantara-Connected Multi-Language & Technical Studio
 
-A modern, high-performance, responsive React web application for bidirectional real-time multi-language translation between **English**, **German**, **Dutch**, and **Indonesian**.
+A high-performance, elegant React web application for bidirectional real-time multi-language translation and technical equipment inspection, designed with a warm, archipelago-inspired Nusantara aesthetic.
 
 ---
 
 ## ✨ Features
 
-- **4-Way Simultaneous Translation**:
-  - 🇺🇸 **English (EN)**
-  - 🇩🇪 **German (Deutsch - DE)**
-  - 🇳🇱 **Dutch (Nederlands - NL)**
-  - 🇮🇩 **Indonesian (Bahasa Indonesia - ID)**
-- **Type Anywhere**: Type or paste text into **ANY** of the 4 cards — it instantly synchronizes and translates into the other 3 languages in real time.
+- **Rebranded to AkehBoso**:
+  - Warm golden-amber and tropical jade/emerald palette honoring Indonesian Nusantara heritage.
+  - Bespoke dark-slate canvas (`#070d14`) with subtle ambient glow highlights.
+- **4-Way Simultaneous Translation Grid**:
+  - Default pairing: 🇺🇸 English (EN), 🇩🇪 German (DE), 🇳🇱 Dutch (NL), 🇮🇩 Indonesian (ID).
+  - **Dynamic Language Selector Dropdowns**: Swap any of the 4 boxes on the fly between 16 international languages (Spanish, French, Japanese, Korean, Arabic, and more).
+- **Expanded 1,000-Character Capacity**:
+  - Auto-expanding textareas comfortably handle long technical documents, operational manuals, and paragraphs without breaking layout.
+- **Type Anywhere (Bidirectional Real-Time)**:
+  - Type or paste text into **ANY** active card — it instantly synchronizes and translates into the other 3 cards in real time.
 - **Zero Cursor Jumps & Loop-Free State Management**:
-  - Synchronous local state updates preserve immediate caret and typing responsiveness.
+  - Synchronous local state updates preserve immediate caret responsiveness.
   - Directional one-way debounce prevents recursive update loops (A → B → C → A).
-  - Outdated requests are safely cancelled with `AbortController`.
-- **"Clear All" & Individual Card Clear**: One-click wipe of all 4 boxes or targeted clearing of individual cards.
-- **Copy with Instant Feedback**: Copy button on each card with a 2-second visual confirmation ("Copied!").
-- **Text-To-Speech (Pronunciation)**: Native speech synthesis (`SpeechSynthesisUtterance`) with the correct accents for `en-US`, `de-DE`, `nl-NL`, and `id-ID`.
-- **Voice Dictation (Speech-To-Text)**: Speak directly into any box using Web Speech Recognition (`webkitSpeechRecognition`).
+  - Outdated network requests are safely cancelled with `AbortController`.
+- **Dynamic Visual Reference & Equipment Inspector**:
+  - Automatically queries and visualizes relevant technical imagery, equipment previews, and multilingual nomenclature cards as you type.
+  - Multi-industry filter: Construction 🏗️, Manufacturing 🏭, Laboratory 🔬, Electrical ⚡.
+- **Feedback & Feature Suggestion Modal**:
+  - Built-in feedback dialog with category filtering (Feature Request, Bug Report, Language Suggestion, General Feedback) and local persistence.
+- **Text-To-Speech & Voice Dictation**:
+  - Native speech synthesis with natural accent articulation.
+  - Voice dictation via Web Speech API (`webkitSpeechRecognition`).
 - **Multi-Engine Translation Architecture**:
-  1. **Free Public API (Default)**: Powered by MyMemory API (no key required for up to 5,000 words/day).
-  2. **Offline Dictionary & Fallback**: Fast local dictionary covering common phrases, greetings, questions, and core vocabulary with zero network requirements.
-  3. **LibreTranslate**: Connect to self-hosted or public LibreTranslate instances with optional API keys.
-  4. **DeepL API**: Plug in DeepL Free or Pro authentication keys for neural translation quality.
+  1. **Free Public API (Default)**: Powered by MyMemory API.
+  2. **Offline Dictionary & Fallback**: Fast local dictionary for technical and everyday terminology.
+  3. **LibreTranslate**: Connect to self-hosted or public LibreTranslate instances.
+  4. **DeepL API**: Plug in DeepL Free or Pro authentication keys.
   5. **In-Memory LRU Cache**: Avoids duplicate network calls and delivers instant results.
-- **Bespoke Minimalist UI (Linear / DeepL Style)**:
-  - Clean neutral monochrome palette (Zinc/Slate) with generous whitespace.
-  - Distraction-free, auto-expanding textareas with refined subtle borders.
-  - Minimal top navbar and clean quiet footer.
 
 ---
 
@@ -61,24 +65,6 @@ Open your browser at `http://localhost:5173`.
 npm run build
 npm run preview
 ```
-
----
-
-## 🔑 Scaling Up & API Key Configuration
-
-The app comes out-of-the-box with **free public translation (no setup needed)** and an offline dictionary fallback.
-
-To scale up or use a proprietary translation API:
-1. Click the **Settings** (⚙️) icon in the top header.
-2. Select your provider:
-   - **MyMemory**: Add your email address to raise daily limits to 50,000 characters/day for free.
-   - **LibreTranslate**: Enter your custom endpoint URL and API key.
-   - **DeepL API**: Enter your DeepL Auth Key (supports both Free `:fx` keys and Pro keys).
-   - **Offline Mode**: Restrict to local dictionary (0 network requests).
-3. Adjust the typing debounce delay (200ms – 900ms) to your preference.
-4. Settings are automatically saved to `localStorage`.
-
-Code annotations are provided in [`src/services/translator.ts`](file:///d:/Code%20Antigravity/Language%20Translation/src/services/translator.ts).
 
 ---
 

@@ -35,7 +35,7 @@ export const QuickPhrases: React.FC<QuickPhrasesProps> = ({ onSelectPhrase }) =>
   return (
     <div className="w-full flex flex-wrap items-center gap-2 mb-6 text-xs">
       <span className="text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider text-[11px] select-none mr-1 flex items-center gap-1.5">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
         Quick Prompts:
       </span>
 
@@ -43,9 +43,9 @@ export const QuickPhrases: React.FC<QuickPhrasesProps> = ({ onSelectPhrase }) =>
         <button
           key={index}
           onClick={() => onSelectPhrase(item.lang, item.phrase)}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/80 dark:bg-[#0c1427]/80 hover:bg-cyan-50/70 dark:hover:bg-cyan-950/30 border border-slate-200/80 dark:border-cyan-500/15 hover:border-cyan-400/50 dark:hover:border-cyan-400/40 text-slate-700 dark:text-slate-300 hover:text-cyan-700 dark:hover:text-cyan-300 transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs truncate max-w-[280px] sm:max-w-none group"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/80 dark:bg-[#0c1427]/80 hover:bg-amber-50/70 dark:hover:bg-amber-950/30 border border-slate-200/80 dark:border-amber-500/15 hover:border-amber-400/50 dark:hover:border-amber-400/40 text-slate-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-300 transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs truncate max-w-[280px] sm:max-w-none group"
         >
-          <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-cyan-400 font-bold uppercase group-hover:bg-cyan-500/20 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
+          <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-amber-400 font-bold uppercase group-hover:bg-amber-500/20 group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors">
             {item.lang}
           </span>
           <span className="truncate">{item.phrase}</span>
