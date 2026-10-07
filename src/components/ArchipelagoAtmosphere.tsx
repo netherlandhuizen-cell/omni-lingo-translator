@@ -71,11 +71,11 @@ export const ArchipelagoAtmosphere: React.FC<ArchipelagoAtmosphereProps> = ({ is
         <div className="absolute top-[25%] right-[10%] w-[650px] h-[650px] rounded-full bg-emerald-400/15 blur-[130px]" />
         <div className="absolute top-[45%] right-[30%] w-[500px] h-[500px] rounded-full bg-teal-400/12 blur-[130px]" />
 
-        {/* Warm equatorial sunset & amber horizon glow */}
-        <div className="absolute -bottom-[10%] left-[20%] w-[700px] h-[500px] rounded-full bg-amber-500/12 blur-[140px]" />
+        {/* Warm equatorial ocean & cyan horizon glow */}
+        <div className="absolute -bottom-[10%] left-[20%] w-[700px] h-[500px] rounded-full bg-cyan-500/12 blur-[140px]" />
 
         {/* Deep celestial top aura */}
-        <div className="absolute -top-[15%] left-[10%] w-[600px] h-[450px] rounded-full bg-cyan-500/10 blur-[140px]" />
+        <div className="absolute -top-[15%] left-[10%] w-[600px] h-[450px] rounded-full bg-teal-500/10 blur-[140px]" />
 
         {/* Cinematic top atmospheric gradient */}
         <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-slate-950/85 via-slate-950/35 to-transparent" />
@@ -89,8 +89,8 @@ export const ArchipelagoAtmosphere: React.FC<ArchipelagoAtmosphereProps> = ({ is
         {/* Airy translucent morning mist */}
         <div className="absolute inset-0 bg-white/15 backdrop-blur-[0.5px]" />
 
-        {/* Warm golden morning sunburst from top-right */}
-        <div className="absolute -top-[10%] right-[5%] w-[600px] h-[600px] rounded-full bg-amber-300/20 blur-[130px]" />
+        {/* Crisp ocean breeze aqua sunburst from top-right */}
+        <div className="absolute -top-[10%] right-[5%] w-[600px] h-[600px] rounded-full bg-teal-300/20 blur-[130px]" />
 
         {/* Turquoise lagoon refraction aura */}
         <div className="absolute top-[35%] right-[20%] w-[550px] h-[550px] rounded-full bg-emerald-300/15 blur-[130px]" />
@@ -104,7 +104,7 @@ export const ArchipelagoAtmosphere: React.FC<ArchipelagoAtmosphereProps> = ({ is
 
       {/* 3. Subtle Archipelago Nautical Contours */}
       <svg
-        className="absolute inset-0 w-full h-full text-slate-800 dark:text-amber-100 pointer-events-none"
+        className="absolute inset-0 w-full h-full text-slate-800 dark:text-emerald-100 pointer-events-none"
         viewBox="0 0 1440 900"
         preserveAspectRatio="xMidYMax slice"
         fill="none"
@@ -112,8 +112,8 @@ export const ArchipelagoAtmosphere: React.FC<ArchipelagoAtmosphereProps> = ({ is
       >
         <defs>
           <linearGradient id="contourStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.05" />
-            <stop offset="50%" stopColor="#10b981" stopOpacity="0.12" />
+            <stop offset="0%" stopColor="#10b981" stopOpacity="0.08" />
+            <stop offset="50%" stopColor="#14b8a6" stopOpacity="0.12" />
             <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.08" />
           </linearGradient>
         </defs>
