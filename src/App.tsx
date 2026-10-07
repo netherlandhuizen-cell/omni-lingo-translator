@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import { TranslationCard } from './components/TranslationCard';
 import { QuickPhrases } from './components/QuickPhrases';
 import { SettingsModal } from './components/SettingsModal';
+import { FeedbackModal } from './components/FeedbackModal';
 import { VisualReferenceCard } from './components/VisualReferenceCard';
 import { useMultiTranslator } from './hooks/useMultiTranslator';
 import { useVisualReference } from './hooks/useVisualReference';
@@ -38,6 +39,7 @@ export function App() {
   } = useVisualReference(texts, activeSource);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme_preference');
@@ -94,6 +96,7 @@ export function App() {
         hasContent={hasAnyContent}
         onClearAll={handleClearAll}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        onOpenFeedback={() => setIsFeedbackOpen(true)}
         isDarkMode={isDarkMode}
         onToggleDarkMode={() => setIsDarkMode((prev) => !prev)}
       />
@@ -168,6 +171,12 @@ export function App() {
         onClose={() => setIsSettingsOpen(false)}
         settings={settings}
         onSaveSettings={setSettings}
+      />
+
+      {/* Feedback & Feature Suggestion Modal */}
+      <FeedbackModal
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
       />
     </div>
   );
