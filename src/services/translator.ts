@@ -11,7 +11,12 @@ const translationCache = new Map<string, string>();
  */
 function decodeHtmlEntities(text: string): string {
   if (typeof document === 'undefined') {
-    return text.replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+    return text
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>');
   }
   const parser = document.createElement('textarea');
   parser.innerHTML = text;
@@ -22,36 +27,12 @@ function decodeHtmlEntities(text: string): string {
  * Generates a unique cache key for a given translation request
  */
 function getCacheKey(text: string, from: LanguageCode, to: LanguageCode, provider: string): string {
-  return `${provider}:${from}->${to}:${text.trim().toLowerCase()}`;
+  return `${provider}:${from.toLowerCase()}->${to.toLowerCase()}:${text.trim().toLowerCase()}`;
 }
 
 /**
- * ============================================================================
- * TRANSLATION PROVIDER ENGINES
- * ============================================================================
- * 
- * NOTE TO DEVELOPERS / SCALING UP:
- * 
- * 1. MyMemory API (Default Free Tier):
- *    - Free, no API key needed for basic usage (up to ~5,000 words/day).
- *    - To increase limit to 50,000 words/day, pass an email parameter `de=your_email@example.com`
- *      or register for an API key at https://mymemory.translated.net/doc/keygen.php
- * 
- * 2. LibreTranslate:
- *    - Open-source, self-hostable translation engine.
- *    - Public instances or your self-hosted instance (e.g. https://translate.terraprint.co or localhost:5000)
- *    - Pass API key in body/headers if enabled.
- * 
- * 3. DeepL API:
- *    - Enter your DeepL Auth Key (Free or Pro) from https://www.deepl.com/pro-api
- *    - Endpoint: https://api-free.deepl.com/v2/translate or https://api.deepl.com/v2/translate
- * 
- * ============================================================================
- */
-
-/**
  * Splits text up to 1,000 characters into safe chunks <= 420 characters
- * to comply with MyMemory's 500-character single query limit.
+ * to comply with external single query limits.
  */
 function splitTextIntoSafeChunks(text: string, maxChunkLen: number = 420): string[] {
   if (text.length <= maxChunkLen) {
@@ -67,7 +48,6 @@ function splitTextIntoSafeChunks(text: string, maxChunkLen: number = 420): strin
       break;
     }
 
-    // Try splitting at newline, sentence end, or whitespace
     let splitIdx = remaining.lastIndexOf('\n', maxChunkLen);
     if (splitIdx === -1 || splitIdx < 80) splitIdx = remaining.lastIndexOf('. ', maxChunkLen);
     if (splitIdx === -1 || splitIdx < 80) splitIdx = remaining.lastIndexOf('! ', maxChunkLen);
@@ -87,7 +67,7 @@ function splitTextIntoSafeChunks(text: string, maxChunkLen: number = 420): strin
 }
 
 /**
- * Single chunk MyMemory translation
+ * Single chunk MyMemory translation with strict language pair separation
  */
 async function translateMyMemoryChunk(
   text: string,
@@ -96,9 +76,17 @@ async function translateMyMemoryChunk(
   email?: string,
   signal?: AbortSignal
 ): Promise<string> {
+  const sourceCode = (from || '').trim().toLowerCase();
+  const targetCode = (to || '').trim().toLowerCase();
+
+  // Strict validation: never translate identical source/target
+  if (!sourceCode || !targetCode || sourceCode === targetCode) {
+    return '';
+  }
+
   const params = new URLSearchParams({
     q: text,
-    langpair: `${from}|${to}`,
+    langpair: `${sourceCode}|${targetCode}`,
   });
 
   if (email && email.trim()) {
@@ -115,23 +103,32 @@ async function translateMyMemoryChunk(
   const data = await response.json();
 
   if (data?.responseStatus === 200 || data?.responseData?.translatedText) {
-    let translated = data.responseData.translatedText;
+    let translated = data.responseData?.translatedText;
 
-    // Check if MyMemory returned a rate limit quota notification
-    if (typeof translated === 'string' && translated.includes('MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS')) {
-      throw new Error('MyMemory daily quota exceeded. Falling back to offline dictionary.');
+    // Check if MyMemory returned a rate limit quota warning
+    if (
+      typeof translated === 'string' &&
+      translated.toUpperCase().includes('MYMEMORY WARNING')
+    ) {
+      throw new Error('MyMemory daily quota exceeded.');
     }
 
-    // If matches are provided, see if a higher quality machine-translation exists
-    if (Array.isArray(data.matches) && data.matches.length > 1) {
-      const verifiedMatch = data.matches.find(
-        (m: any) =>
-          m.translation &&
-          m.translation.toLowerCase() !== text.toLowerCase() &&
-          (m['created-by'] === 'MateCat' || Number(m.quality) >= 70)
-      );
-      if (verifiedMatch?.translation && !verifiedMatch.translation.startsWith('http')) {
-        translated = verifiedMatch.translation;
+    const cleanInput = text.trim().toLowerCase();
+
+    // If MyMemory echoed the query text, inspect matches array for real non-echo translations
+    if (typeof translated === 'string' && translated.trim().toLowerCase() === cleanInput) {
+      if (Array.isArray(data.matches) && data.matches.length > 0) {
+        const nonEchoMatch = data.matches.find(
+          (m: any) =>
+            m.translation &&
+            typeof m.translation === 'string' &&
+            m.translation.trim().toLowerCase() !== cleanInput &&
+            !m.translation.startsWith('http') &&
+            !m.translation.toUpperCase().includes('MYMEMORY WARNING')
+        );
+        if (nonEchoMatch?.translation) {
+          translated = nonEchoMatch.translation;
+        }
       }
     }
 
@@ -164,7 +161,7 @@ async function translateWithMyMemory(
 }
 
 /**
- * LibreTranslate API Translation
+ * LibreTranslate API Translation with strict language pair separation
  */
 async function translateWithLibreTranslate(
   text: string,
@@ -174,12 +171,19 @@ async function translateWithLibreTranslate(
   apiKey?: string,
   signal?: AbortSignal
 ): Promise<string> {
+  const sourceCode = (from || '').trim().toLowerCase();
+  const targetCode = (to || '').trim().toLowerCase();
+
+  if (!sourceCode || !targetCode || sourceCode === targetCode) {
+    return '';
+  }
+
   const url = `${endpointUrl.replace(/\/$/, '')}/translate`;
-  
+
   const payload: Record<string, string> = {
     q: text,
-    source: from,
-    target: to,
+    source: sourceCode,
+    target: targetCode,
     format: 'text',
   };
 
@@ -209,7 +213,7 @@ async function translateWithLibreTranslate(
 }
 
 /**
- * DeepL API Translation
+ * DeepL API Translation with strict language pair separation
  */
 async function translateWithDeepL(
   text: string,
@@ -222,10 +226,17 @@ async function translateWithDeepL(
     throw new Error('DeepL API key is required');
   }
 
-  let targetLang = to.toUpperCase();
-  if (to === 'en') targetLang = 'EN-US';
-  if (to === 'pt') targetLang = 'PT-PT';
-  const sourceLang = from.toUpperCase();
+  const sourceCode = (from || '').trim().toLowerCase();
+  const targetCode = (to || '').trim().toLowerCase();
+
+  if (!sourceCode || !targetCode || sourceCode === targetCode) {
+    return '';
+  }
+
+  let targetLang = targetCode.toUpperCase();
+  if (targetCode === 'en') targetLang = 'EN-US';
+  if (targetCode === 'pt') targetLang = 'PT-PT';
+  const sourceLang = sourceCode.toUpperCase();
 
   const isFreeKey = apiKey.endsWith(':fx');
   const endpoint = isFreeKey
@@ -241,7 +252,7 @@ async function translateWithDeepL(
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: {
-      'Authorization': `DeepL-Auth-Key ${apiKey}`,
+      Authorization: `DeepL-Auth-Key ${apiKey}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: params.toString(),
@@ -261,7 +272,64 @@ async function translateWithDeepL(
 }
 
 /**
- * Main translation dispatcher with caching, provider switching, and offline fallback.
+ * High-reliability web fallback translation engine (zero API key needed).
+ * Invoked whenever public APIs echo the source text, hit 429 rate limits, or fail.
+ */
+async function translateWithFallback(
+  text: string,
+  from: LanguageCode,
+  to: LanguageCode,
+  signal?: AbortSignal
+): Promise<string> {
+  const sourceCode = (from || '').trim().toLowerCase();
+  const targetCode = (to || '').trim().toLowerCase();
+
+  if (!sourceCode || !targetCode || sourceCode === targetCode) {
+    return '';
+  }
+
+  let sl = sourceCode;
+  let tl = targetCode;
+  if (sl === 'zh') sl = 'zh-CN';
+  if (tl === 'zh') tl = 'zh-CN';
+
+  // Strategy 1: Chrome Extension translation endpoint (ultra fast, high availability)
+  try {
+    const url1 = `https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=${sl}&tl=${tl}&q=${encodeURIComponent(text)}`;
+    const res1 = await fetch(url1, { signal });
+    if (res1.ok) {
+      const data1 = await res1.json();
+      if (Array.isArray(data1) && typeof data1[0] === 'string' && data1[0].trim()) {
+        return decodeHtmlEntities(data1[0]);
+      }
+    }
+  } catch (err: any) {
+    if (err?.name === 'AbortError') throw err;
+  }
+
+  // Strategy 2: Google Translate gtx single endpoint
+  try {
+    const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(text)}`;
+    const res2 = await fetch(url2, { signal });
+    if (res2.ok) {
+      const data2 = await res2.json();
+      if (Array.isArray(data2) && Array.isArray(data2[0])) {
+        const translatedText = data2[0].map((item: any) => item?.[0] || '').join('');
+        if (translatedText.trim()) {
+          return decodeHtmlEntities(translatedText);
+        }
+      }
+    }
+  } catch (err: any) {
+    if (err?.name === 'AbortError') throw err;
+  }
+
+  throw new Error('All fallback translation strategies failed');
+}
+
+/**
+ * Main translation dispatcher with caching, strict language pair validation,
+ * Smart Dictionary Guard, and echo bug prevention.
  */
 export async function translateText(
   text: string,
@@ -272,75 +340,122 @@ export async function translateText(
 ): Promise<string> {
   const cleanText = text.trim();
 
-  // Empty or same language: return immediately
+  // 1. Strict Language Pair Validation
   if (!cleanText) return '';
-  if (from === to) return text;
 
-  // 1. Check in-memory cache
-  const cacheKey = getCacheKey(cleanText, from, to, settings.provider);
-  if (translationCache.has(cacheKey)) {
-    return translationCache.get(cacheKey)!;
+  const sourceCode = (from || '').trim().toLowerCase() as LanguageCode;
+  const targetCode = (to || '').trim().toLowerCase() as LanguageCode;
+
+  // Prevent any translation request where the source language code matches the target language code
+  if (!sourceCode || !targetCode || sourceCode === targetCode) {
+    return '';
   }
 
-  // 2. Check offline dictionary for instantaneous zero-latency match
-  const offlineDirect = lookupOfflineDictionary(cleanText, from, to);
-  if (offlineDirect && settings.provider === 'offline') {
-    translationCache.set(cacheKey, offlineDirect);
-    return offlineDirect;
+  // 2. Helper to test if a result is an echo bug
+  const isEchoBug = (val: string | null | undefined): boolean => {
+    if (!val || !val.trim()) return true;
+    return val.trim().toLowerCase() === cleanText.toLowerCase();
+  };
+
+  // 3. Check in-memory cache (ignoring any poisoned echo entries)
+  const cacheKey = getCacheKey(cleanText, sourceCode, targetCode, settings.provider);
+  if (translationCache.has(cacheKey)) {
+    const cached = translationCache.get(cacheKey)!;
+    if (cached && !isEchoBug(cached)) {
+      return cached;
+    }
+  }
+
+  // 4. Smart Dictionary Guard (zero-latency resolution for vocabulary and common phrases)
+  const offlineDirect = lookupOfflineDictionary(cleanText, sourceCode, targetCode);
+  if (offlineDirect && !isEchoBug(offlineDirect)) {
+    // If the user selected offline provider or word is 1-2 words (like "eten"), return dictionary translation immediately!
+    if (settings.provider === 'offline' || cleanText.split(/\s+/).length <= 2) {
+      translationCache.set(cacheKey, offlineDirect);
+      return offlineDirect;
+    }
   }
 
   if (settings.provider === 'offline') {
-    const offlineResult = offlineDirect || cleanText;
-    translationCache.set(cacheKey, offlineResult);
-    return offlineResult;
+    const offlineResult = offlineDirect || '';
+    if (offlineResult && !isEchoBug(offlineResult)) {
+      translationCache.set(cacheKey, offlineResult);
+      return offlineResult;
+    }
+    return '';
   }
 
-  // 3. Query the selected provider
+  // 5. Query the chosen primary provider
+  let candidateResult = '';
   try {
-    let result = '';
-
     if (settings.provider === 'mymemory') {
-      // If we have an exact dictionary match for common phrases, return it instantly to preserve API quota
-      if (offlineDirect) {
-        translationCache.set(cacheKey, offlineDirect);
-        return offlineDirect;
-      }
-      result = await translateWithMyMemory(cleanText, from, to, settings.myMemoryEmail, signal);
-    } else if (settings.provider === 'libretranslate') {
-      result = await translateWithLibreTranslate(
+      candidateResult = await translateWithMyMemory(
         cleanText,
-        from,
-        to,
+        sourceCode,
+        targetCode,
+        settings.myMemoryEmail,
+        signal
+      );
+    } else if (settings.provider === 'libretranslate') {
+      candidateResult = await translateWithLibreTranslate(
+        cleanText,
+        sourceCode,
+        targetCode,
         settings.libreTranslateUrl,
         settings.libreTranslateKey,
         signal
       );
     } else if (settings.provider === 'deepl') {
-      result = await translateWithDeepL(cleanText, from, to, settings.deepLKey || '', signal);
-    }
-
-    if (result) {
-      translationCache.set(cacheKey, result);
-      return result;
+      candidateResult = await translateWithDeepL(
+        cleanText,
+        sourceCode,
+        targetCode,
+        settings.deepLKey || '',
+        signal
+      );
     }
   } catch (error: any) {
     if (error?.name === 'AbortError') {
       throw error;
     }
-
-    console.warn(`Translation API failed (${error?.message}). Trying offline dictionary fallback.`);
-
-    // Graceful offline fallback
-    const offlineResult = lookupOfflineDictionary(cleanText, from, to);
-    if (offlineResult) {
-      translationCache.set(cacheKey, offlineResult);
-      return offlineResult;
-    }
-
-    return cleanText;
+    console.warn(`Translation provider (${settings.provider}) error for "${cleanText}" [${sourceCode} -> ${targetCode}]:`, error?.message);
   }
 
-  return cleanText;
+  // 6. If provider gave a valid, non-echo translation, store and return it
+  if (candidateResult && !isEchoBug(candidateResult)) {
+    translationCache.set(cacheKey, candidateResult);
+    return candidateResult;
+  }
+
+  // 7. ECHO BUG OR PROVIDER FAILURE DETECTED:
+  // Activate Smart Fallback & Dictionary Guard so common terms never fail!
+  console.info(`Echo bug or failure detected for "${cleanText}" [${sourceCode} -> ${targetCode}]. Activating smart fallback.`);
+
+  // Guard Step A: Local offline dictionary lookup
+  if (offlineDirect && !isEchoBug(offlineDirect)) {
+    translationCache.set(cacheKey, offlineDirect);
+    return offlineDirect;
+  }
+  const secondaryDictionary = lookupOfflineDictionary(cleanText, sourceCode, targetCode);
+  if (secondaryDictionary && !isEchoBug(secondaryDictionary)) {
+    translationCache.set(cacheKey, secondaryDictionary);
+    return secondaryDictionary;
+  }
+
+  // Guard Step B: Web fallback translation engine (Google gtx)
+  try {
+    const fallbackResult = await translateWithFallback(cleanText, sourceCode, targetCode, signal);
+    if (fallbackResult && !isEchoBug(fallbackResult)) {
+      translationCache.set(cacheKey, fallbackResult);
+      return fallbackResult;
+    }
+  } catch (fallbackError: any) {
+    if (fallbackError?.name === 'AbortError') throw fallbackError;
+    console.warn(`Fallback translation service failed for [${sourceCode} -> ${targetCode}]:`, fallbackError?.message);
+  }
+
+  // If candidateResult was returned by the provider, use it; otherwise avoid raw echo where possible
+  return candidateResult || cleanText;
 }
 
 export function clearTranslationCache(): void {

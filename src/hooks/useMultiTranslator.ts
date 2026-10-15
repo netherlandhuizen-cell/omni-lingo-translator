@@ -114,7 +114,9 @@ export function useMultiTranslator() {
 
       const trimmed = sourceText.trim();
       const currentSlots = slotLanguagesRef.current;
-      const targetLangs = currentSlots.filter((l) => l !== sourceLang);
+      const targetLangs = currentSlots.filter(
+        (l) => l && l.toLowerCase() !== sourceLang.toLowerCase()
+      );
 
       if (!trimmed) {
         setTexts((prev) => {
@@ -134,6 +136,11 @@ export function useMultiTranslator() {
       });
 
       targetLangs.forEach(async (targetLang) => {
+        // Strict guard: skip if source and target are identical or invalid
+        if (!targetLang || targetLang.toLowerCase() === sourceLang.toLowerCase()) {
+          return;
+        }
+
         try {
           const translated = await translateText(
             sourceText,
@@ -230,22 +237,25 @@ export function useMultiTranslator() {
 
       // If active source text exists, translate into the new language right away
       const currentSource = activeSourceRef.current;
-      if (currentSource && texts[currentSource]?.trim()) {
+      if (
+        currentSource &&
+        newLang &&
+        currentSource.toLowerCase() !== newLang.toLowerCase() &&
+        texts[currentSource]?.trim()
+      ) {
         const sourceText = texts[currentSource];
-        if (currentSource !== newLang) {
-          setLoading((prev) => ({ ...prev, [newLang]: true }));
+        setLoading((prev) => ({ ...prev, [newLang]: true }));
 
-          translateText(sourceText, currentSource, newLang, settings)
-            .then((translated) => {
-              setTexts((prev) => ({ ...prev, [newLang]: translated }));
-            })
-            .catch((err) => {
-              console.error(`Translation failed on language switch [${currentSource} -> ${newLang}]:`, err);
-            })
-            .finally(() => {
-              setLoading((prev) => ({ ...prev, [newLang]: false }));
-            });
-        }
+        translateText(sourceText, currentSource, newLang, settings)
+          .then((translated) => {
+            setTexts((prev) => ({ ...prev, [newLang]: translated }));
+          })
+          .catch((err) => {
+            console.error(`Translation failed on language switch [${currentSource} -> ${newLang}]:`, err);
+          })
+          .finally(() => {
+            setLoading((prev) => ({ ...prev, [newLang]: false }));
+          });
       }
     },
     [texts, settings]
