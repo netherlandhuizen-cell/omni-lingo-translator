@@ -43,7 +43,10 @@ export function useMultiTranslator() {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length === 4) {
-          return parsed as [LanguageCode, LanguageCode, LanguageCode, LanguageCode];
+          const unique = Array.from(new Set(parsed)) as LanguageCode[];
+          if (unique.length === 4) {
+            return parsed as [LanguageCode, LanguageCode, LanguageCode, LanguageCode];
+          }
         }
       }
     } catch (e) {
@@ -114,8 +117,9 @@ export function useMultiTranslator() {
 
       const trimmed = sourceText.trim();
       const currentSlots = slotLanguagesRef.current;
-      const targetLangs = currentSlots.filter(
-        (l) => l && l.toLowerCase() !== sourceLang.toLowerCase()
+      // Strictly ignore duplicate slots and ignore any slot matching source language
+      const targetLangs = Array.from(
+        new Set(currentSlots.filter((l) => l && l.toLowerCase() !== sourceLang.toLowerCase()))
       );
 
       if (!trimmed) {

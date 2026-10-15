@@ -19,15 +19,15 @@ export function useVisualReference(
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
-    // 1. Determine active query from what the user is typing or the translated text
+    // 1. Determine active query, prioritizing what the user is actively typing
     const activeText = activeSource ? texts[activeSource] : '';
     const englishText = texts.en || '';
 
     // Choose the best candidate query
     const candidateRaw =
-      (englishText.trim().length > 1 ? englishText : '') ||
-      (activeText.trim().length > 1 ? activeText : '') ||
-      Object.values(texts).find((t) => t.trim().length > 1) ||
+      (activeText.trim().length > 0 ? activeText : '') ||
+      (englishText.trim().length > 0 ? englishText : '') ||
+      Object.values(texts).find((t) => t.trim().length > 0) ||
       '';
 
     const candidate = extractSearchTerm(candidateRaw);
@@ -41,7 +41,7 @@ export function useVisualReference(
     }
 
     // 2. If all text boxes are empty or cleared, immediately show placeholder
-    if (!candidate || candidate.length < 2) {
+    if (!candidate || candidate.length < 1) {
       setData(null);
       setIsLoading(false);
       setSearchTerm('');

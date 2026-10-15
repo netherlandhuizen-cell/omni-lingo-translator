@@ -454,8 +454,17 @@ export async function translateText(
     console.warn(`Fallback translation service failed for [${sourceCode} -> ${targetCode}]:`, fallbackError?.message);
   }
 
-  // If candidateResult was returned by the provider, use it; otherwise avoid raw echo where possible
-  return candidateResult || cleanText;
+  // Guard Step C: If APIs echoed the source string or failed, fall back to clean dictionary or ignore slot
+  if (secondaryDictionary && !isEchoBug(secondaryDictionary)) {
+    return secondaryDictionary;
+  }
+
+  // If candidateResult is an echo bug or identical to source, ignore the duplicate slot to prevent translation loops
+  if (isEchoBug(candidateResult)) {
+    return '';
+  }
+
+  return candidateResult || '';
 }
 
 export function clearTranslationCache(): void {

@@ -228,6 +228,7 @@ export function cleanSearchNoun(text: string): string {
   const clean = text.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()?"']/g, '');
   const tokens = clean.split(/\s+/).filter(Boolean);
   if (tokens.length === 0) return '';
+  if (tokens.length === 1) return tokens[0];
 
   const meaningful = tokens.filter((t) => !MODIFIERS_AND_STOPWORDS.has(t));
   if (meaningful.length === 0) {
