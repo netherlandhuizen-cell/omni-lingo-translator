@@ -40,6 +40,30 @@ interface StudyDeckProps {
 
 const DEFAULT_DISPLAY_LANGS: LanguageCode[] = ['en', 'de', 'nl', 'id'];
 
+const getCategoryLabel = (cat?: string) => {
+  if (!cat) return null;
+  switch (cat.toLowerCase()) {
+    case 'office':
+      return '💼 Office Life';
+    case 'travel':
+      return '✈️ Travel & Logistics';
+    case 'nature':
+      return '🌿 Nature & Environment';
+    case 'tools':
+      return '🔧 Technical & Tools';
+    case 'construction':
+      return '🏗️ Heavy Construction';
+    case 'manufacturing':
+      return '⚙️ Manufacturing';
+    case 'electrical':
+      return '⚡ Electrical';
+    case 'laboratory':
+      return '🔬 Laboratory';
+    default:
+      return cat;
+  }
+};
+
 export const StudyDeck: React.FC<StudyDeckProps> = ({
   flashcards,
   currentIndex,
@@ -277,10 +301,11 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
           {/* Shuffle Deck */}
           <button
             onClick={onShuffle}
-            title="Shuffle flashcard deck"
-            className="p-1.5 rounded-xl bg-white/40 dark:bg-slate-900/40 hover:bg-white/70 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-emerald-500 border border-white/60 dark:border-white/10 shadow-md transition-all cursor-pointer active:scale-95"
+            title="Shuffle deck for active recall"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/40 dark:bg-slate-900/40 hover:bg-emerald-500/20 text-slate-800 dark:text-slate-200 hover:text-emerald-500 border border-white/60 dark:border-white/10 shadow-md transition-all cursor-pointer active:scale-95 text-xs font-bold"
           >
-            <Shuffle className="w-4 h-4" />
+            <Shuffle className="w-3.5 h-3.5 text-emerald-500" />
+            <span className="hidden sm:inline">Shuffle</span>
           </button>
 
           {/* View All Deck Cards */}
@@ -325,7 +350,7 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
                 </span>
                 {currentCard?.visual?.category && (
                   <span className="text-[10px] uppercase font-mono tracking-wider font-semibold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 hidden sm:inline">
-                    {currentCard.visual.category}
+                    {getCategoryLabel(currentCard.visual.category)}
                   </span>
                 )}
               </div>
@@ -506,16 +531,26 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
           <span className="hidden sm:inline">Prev</span>
         </button>
 
-        {/* Center: Flip & Quick Controls */}
+        {/* Center: Flip, Shuffle & Quick Controls */}
         <div className="flex items-center gap-2">
           {/* Flip Button */}
           <button
             onClick={onFlip}
             title="Flip Card (Space)"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/25 transition-all cursor-pointer active:scale-95"
+            className="flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/25 transition-all cursor-pointer active:scale-95"
           >
             <RotateCw className="w-4 h-4" />
             <span>{isFlipped ? 'Show Front' : 'Flip Card'}</span>
+          </button>
+
+          {/* Prominent Shuffle Deck Button */}
+          <button
+            onClick={onShuffle}
+            title="Randomize card order for active recall"
+            className="flex items-center gap-1.5 px-3.5 sm:px-4 py-2.5 rounded-2xl bg-white/60 dark:bg-slate-800/80 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-slate-800 dark:text-emerald-300 hover:text-emerald-600 dark:hover:text-emerald-200 border border-white/60 dark:border-emerald-500/30 text-xs font-bold shadow-lg transition-all cursor-pointer active:scale-95"
+          >
+            <Shuffle className="w-4 h-4 text-emerald-500" />
+            <span>Shuffle</span>
           </button>
 
           {/* Remove from Deck */}

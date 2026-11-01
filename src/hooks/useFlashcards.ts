@@ -1,13 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Flashcard, LanguageCode, IndustryCategory } from '../types';
-import { STARTER_FLASHCARDS } from '../constants/starterDeck';
+import { getRandomizedStarterDeck } from '../constants/starterDeck';
 import type { VisualReferenceResult } from '../services/visualReference';
 
-const STORAGE_KEY = 'akehboso_study_deck';
+const STORAGE_KEY = 'akehboso_study_deck_v2';
+const LEGACY_STORAGE_KEY = 'akehboso_study_deck';
 
 export function useFlashcards() {
   const [flashcards, setFlashcards] = useState<Flashcard[]>(() => {
-    if (typeof window === 'undefined') return STARTER_FLASHCARDS;
+    if (typeof window === 'undefined') return getRandomizedStarterDeck();
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
@@ -16,10 +17,24 @@ export function useFlashcards() {
           return parsed;
         }
       }
+
+      // Check legacy storage and migrate any custom user cards
+      const legacyStored = localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (legacyStored) {
+        const legacyParsed = JSON.parse(legacyStored);
+        if (Array.isArray(legacyParsed)) {
+          const customUserCards = legacyParsed.filter(
+            (c: Flashcard) => c && c.id && !c.id.startsWith('starter-')
+          );
+          if (customUserCards.length > 0) {
+            return [...customUserCards, ...getRandomizedStarterDeck()];
+          }
+        }
+      }
     } catch (e) {
       console.error('Failed to parse saved flashcards:', e);
     }
-    return STARTER_FLASHCARDS;
+    return getRandomizedStarterDeck();
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -94,7 +109,7 @@ export function useFlashcards() {
       return shuffled;
     });
     setCurrentIndex(0);
-    showToast('Deck shuffled! 🔀');
+    showToast('Deck shuffled! Random active recall mode 🔀');
   }, [flashcards.length, showToast]);
 
   const saveToDeck = useCallback(
@@ -178,10 +193,10 @@ export function useFlashcards() {
   );
 
   const resetToStarterDeck = useCallback(() => {
-    setFlashcards(STARTER_FLASHCARDS);
+    setFlashcards(getRandomizedStarterDeck());
     setCurrentIndex(0);
     setIsFlipped(false);
-    showToast('Reset to default technical starter deck ↺');
+    showToast('Reset to diverse randomized starter deck ↺');
   }, [showToast]);
 
   const addCustomCard = useCallback(
