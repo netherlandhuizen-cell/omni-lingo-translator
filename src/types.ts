@@ -51,3 +51,21 @@ export interface IndustryMeta {
   biasTerms: string;
   sampleTerms: string[];
 }
+
+export type ActiveTab = 'workspace' | 'deck';
+
+export interface Flashcard {
+  id: string;
+  createdAt: number;
+  primaryTerm: string;
+  primaryLang: LanguageCode;
+  translations: Partial<Record<LanguageCode, string>>;
+  visual?: {
+    title?: string;
+    description?: string;
+    imageUrl?: string;
+    category?: IndustryCategory | string;
+  };
+  notes?: string;
+}
+

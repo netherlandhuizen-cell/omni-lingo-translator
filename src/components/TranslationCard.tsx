@@ -10,6 +10,7 @@ import {
   Loader2,
   ChevronDown,
   Search,
+  Bookmark,
 } from 'lucide-react';
 import type { LanguageCode } from '../types';
 import { SUPPORTED_LANGUAGES, ALL_LANGUAGES } from '../constants/languages';
@@ -30,6 +31,7 @@ interface TranslationCardProps {
   onSpeak: () => void;
   onVoiceInput: () => void;
   onClearCard: () => void;
+  onSaveToDeck?: () => void;
 }
 
 export const TranslationCard: React.FC<TranslationCardProps> = ({
@@ -47,6 +49,7 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
   onSpeak,
   onVoiceInput,
   onClearCard,
+  onSaveToDeck,
 }) => {
   const meta = SUPPORTED_LANGUAGES[lang] || SUPPORTED_LANGUAGES.en;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -240,6 +243,16 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
             </div>
           ) : null}
 
+          {text && onSaveToDeck && (
+            <button
+              onClick={onSaveToDeck}
+              title={`Save ${meta.name} word to Study Deck`}
+              className="p-1 rounded-lg text-slate-400 hover:text-amber-500 dark:hover:text-amber-300 hover:bg-amber-500/10 transition-colors cursor-pointer"
+            >
+              <Bookmark className="w-3.5 h-3.5" />
+            </button>
+          )}
+
           {text && (
             <button
               onClick={onClearCard}
@@ -355,6 +368,23 @@ export const TranslationCard: React.FC<TranslationCardProps> = ({
               </>
             )}
           </button>
+
+          {/* Bookmark / Save to Study Deck */}
+          {onSaveToDeck && (
+            <button
+              onClick={onSaveToDeck}
+              disabled={!text}
+              title={text ? `Save ${meta.name} translation to Study Deck` : 'Enter text to save to Study Deck'}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                text
+                  ? 'text-slate-600 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-300 hover:bg-slate-200/60 dark:hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 cursor-pointer active:scale-95'
+                  : 'text-slate-300 dark:text-slate-700 cursor-not-allowed border border-transparent'
+              }`}
+            >
+              <Bookmark className="w-3.5 h-3.5" />
+              <span className="text-[11px] hidden sm:inline">Save</span>
+            </button>
+          )}
         </div>
 
         {/* Monospace count metrics with 1,000 char indicator */}
