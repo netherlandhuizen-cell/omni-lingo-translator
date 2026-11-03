@@ -3,45 +3,106 @@ import type { Flashcard, LanguageCode, IndustryCategory } from '../types';
 import { getRandomPackageDeck } from '../constants/starterDeck';
 import type { VisualReferenceResult } from '../services/visualReference';
 
-const STORAGE_KEY = 'akehboso_study_deck_v3';
-const LEGACY_STORAGE_KEYS = ['akehboso_study_deck_v2', 'akehboso_study_deck'];
+const CURRENT_STORAGE_KEY = 'akehboso_pure_daily_study_deck_v5';
+const OBSOLETE_STORAGE_KEYS = [
+  'akehboso_study_deck',
+  'akehboso_study_deck_v2',
+  'akehboso_study_deck_v3',
+  'akehboso_daily_study_deck_v4',
+];
+
+const CONSTRUCTION_JARGON_TERMS = [
+  'excavator',
+  'bagger',
+  'graafmachine',
+  'ekskavator',
+  'bulldozer',
+  'buldoser',
+  'planierraupe',
+  'crane',
+  'turmkran',
+  'baukran',
+  'bouwkraan',
+  'derek',
+  'screwdriver',
+  'schraubendreher',
+  'schroevendraaier',
+  'obeng',
+  'welding',
+  'schweißgerät',
+  'lasapparaat',
+  'mesin las',
+  'multimeter',
+  'oscilloscope',
+  'oszilloskop',
+  'helmet',
+  'schutzhelm',
+  'veiligheidshelm',
+  'helm keselamatan',
+  'wrench',
+  'circuit',
+  'blueprint',
+  'pressure gauge',
+  'manometer',
+  'drukmeter',
+  'forklift',
+  'gabelstapler',
+  'vorkheftruck',
+  'lathe',
+  'centrifuge',
+];
+
+function isObsoleteOrConstructionCard(c: Flashcard): boolean {
+  if (!c) return false;
+  // Any legacy starter or master id from old construction decks
+  if (c.id && (c.id.startsWith('starter-') || c.id.startsWith('master-'))) {
+    return true;
+  }
+  const textBlob = [
+    c.primaryTerm,
+    c.visual?.title,
+    c.visual?.category,
+    ...Object.values(c.translations || {}),
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  return CONSTRUCTION_JARGON_TERMS.some((term) => textBlob.includes(term));
+}
 
 export function useFlashcards() {
   const [flashcards, setFlashcards] = useState<Flashcard[]>(() => {
     if (typeof window === 'undefined') return getRandomPackageDeck(20);
+
+    // Clean up all obsolete legacy storage keys from browser
+    OBSOLETE_STORAGE_KEYS.forEach((key) => {
+      try {
+        localStorage.removeItem(key);
+      } catch (_) {}
+    });
+
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(CURRENT_STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
-        }
-      }
-
-      // Check legacy storage and migrate any custom user cards
-      for (const legacyKey of LEGACY_STORAGE_KEYS) {
-        const legacyStored = localStorage.getItem(legacyKey);
-        if (legacyStored) {
-          const legacyParsed = JSON.parse(legacyStored);
-          if (Array.isArray(legacyParsed)) {
-            const customUserCards = legacyParsed.filter(
-              (c: Flashcard) =>
-                c &&
-                c.id &&
-                !c.id.startsWith('master-') &&
-                !c.id.startsWith('starter-')
-            );
-            if (customUserCards.length > 0) {
-              const needed = Math.max(0, 20 - customUserCards.length);
-              return [...customUserCards, ...getRandomPackageDeck(needed > 0 ? needed : 20)];
-            }
+          // If ANY construction card exists in stored deck, wipe it and load fresh pure daily deck
+          const hasConstruction = parsed.some(isObsoleteOrConstructionCard);
+          if (!hasConstruction && parsed.length >= 10) {
+            return parsed;
           }
         }
       }
     } catch (e) {
       console.error('Failed to parse saved flashcards:', e);
     }
-    return getRandomPackageDeck(20);
+
+    const freshDailyDeck = getRandomPackageDeck(20);
+    try {
+      localStorage.setItem(CURRENT_STORAGE_KEY, JSON.stringify(freshDailyDeck));
+    } catch (_) {}
+    return freshDailyDeck;
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,7 +114,7 @@ export function useFlashcards() {
   // Sync to localStorage
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(flashcards));
+      localStorage.setItem(CURRENT_STORAGE_KEY, JSON.stringify(flashcards));
     } catch (e) {
       console.error('Failed to save flashcards to localStorage:', e);
     }
@@ -200,13 +261,13 @@ export function useFlashcards() {
   );
 
   const refreshPackage = useCallback(() => {
-    // Preserve any user-created custom cards
+    // Preserve only real non-construction user custom cards
     const customUserCards = flashcards.filter(
       (c) =>
         c &&
         c.id &&
-        !c.id.startsWith('master-') &&
-        !c.id.startsWith('starter-')
+        c.id.startsWith('custom-') &&
+        !isObsoleteOrConstructionCard(c)
     );
     const slotsNeeded = Math.max(0, 20 - customUserCards.length);
     const freshCards = getRandomPackageDeck(slotsNeeded > 0 ? slotsNeeded : 20);
@@ -215,7 +276,7 @@ export function useFlashcards() {
     setFlashcards(nextDeck);
     setCurrentIndex(0);
     setIsFlipped(false);
-    showToast('Loaded fresh 20-card vocabulary package! 🔄');
+    showToast('Loaded fresh 20-card daily vocabulary package! 🔄');
   }, [flashcards, showToast]);
 
   const resetToStarterDeck = useCallback(() => {

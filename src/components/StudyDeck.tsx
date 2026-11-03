@@ -44,24 +44,18 @@ const DEFAULT_DISPLAY_LANGS: LanguageCode[] = ['en', 'de', 'nl', 'id'];
 const getCategoryLabel = (cat?: string) => {
   if (!cat) return null;
   switch (cat.toLowerCase()) {
+    case 'home':
+      return '🏠 Daily Life & Home';
+    case 'food':
+      return '☕ Food & Dining';
+    case 'social':
+      return '💛 Emotions & Social';
+    case 'weather':
+      return '🌤️ Weather & Time';
+    case 'city':
+      return '🚲 Travel & City';
     case 'daily':
       return '💬 Daily Conversation';
-    case 'office':
-      return '💼 Office & Work';
-    case 'travel':
-      return '✈️ Travel & Logistics';
-    case 'nature':
-      return '🌿 Nature & Climate';
-    case 'tools':
-      return '🔧 Tools & Engineering';
-    case 'construction':
-      return '🏗️ Heavy Construction';
-    case 'manufacturing':
-      return '⚙️ Manufacturing';
-    case 'electrical':
-      return '⚡ Electrical';
-    case 'laboratory':
-      return '🔬 Laboratory';
     default:
       return cat;
   }
@@ -181,14 +175,14 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
             title: primaryTerm,
             description: newDesc.trim() || 'Custom vocabulary entry',
             imageUrl: newImage.trim(),
-            category: 'construction',
+            category: 'home',
           }
         : newDesc.trim()
         ? {
             title: primaryTerm,
             description: newDesc.trim(),
-            imageUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
-            category: 'construction',
+            imageUrl: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80',
+            category: 'home',
           }
         : undefined,
       notes: newDesc.trim(),
