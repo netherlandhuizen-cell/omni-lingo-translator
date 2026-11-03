@@ -3,13 +3,14 @@ import type { Flashcard, LanguageCode, IndustryCategory } from '../types';
 import { getRandomPackageDeck, shuffleArray } from '../constants/starterDeck';
 import type { VisualReferenceResult } from '../services/visualReference';
 
-const CURRENT_STORAGE_KEY = 'akehboso_multitopic_study_deck_v6';
+const CURRENT_STORAGE_KEY = 'akehboso_300plus_study_deck_v7';
 const OBSOLETE_STORAGE_KEYS = [
   'akehboso_study_deck',
   'akehboso_study_deck_v2',
   'akehboso_study_deck_v3',
   'akehboso_daily_study_deck_v4',
   'akehboso_pure_daily_study_deck_v5',
+  'akehboso_multitopic_study_deck_v6',
 ];
 
 const CONSTRUCTION_JARGON_TERMS = [
@@ -270,7 +271,7 @@ export function useFlashcards() {
     setFlashcards(nextDeck);
     setCurrentIndex(0);
     setIsFlipped(false);
-    showToast('Loaded fresh 20-card multi-topic package! 🔄');
+    showToast('Loaded fresh 20-card package from 300+ word database! 🔄');
   }, [flashcards, showToast]);
 
   const resetToStarterDeck = useCallback(() => {

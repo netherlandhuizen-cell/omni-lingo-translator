@@ -44,22 +44,28 @@ const DEFAULT_DISPLAY_LANGS: LanguageCode[] = ['en', 'de', 'nl', 'id'];
 const getCategoryLabel = (cat?: string) => {
   if (!cat) return null;
   switch (cat.toLowerCase()) {
-    case 'food':
-      return '🍲 Food & Dining';
-    case 'travel':
-      return '✈️ Travel & Places';
-    case 'feelings':
-      return '💛 Feelings & Traits';
-    case 'actions':
-      return '⚡ Actions & Verbs';
-    case 'nature':
-      return '🌿 Environment & Weather';
-    case 'business':
-      return '💼 Business & Focus';
     case 'home':
-      return '🏠 Daily Life & Home';
+      return '🏠 Everyday Objects & Home';
+    case 'food':
+      return '🍲 Food, Cooking & Flavors';
+    case 'feelings':
+      return '💛 Emotions, Mind & Personality';
+    case 'travel':
+      return '✈️ Travel, Transport & Urban Life';
+    case 'actions':
+      return '⚡ Common Verbs & Core Actions';
+    case 'nature':
+      return '🌿 Nature, Animals & Weather';
+    case 'business':
+      return '💼 Work, Business & Technology';
+    case 'health':
+      return '🩺 Health, Body & Well-being';
+    case 'society':
+      return '👥 Society, People & Culture';
+    case 'concepts':
+      return '⏳ Abstract Concepts & Time';
     case 'social':
-      return '💛 Emotions & Social';
+      return '👥 Society & Relationships';
     case 'weather':
       return '🌤️ Weather & Time';
     case 'city':
