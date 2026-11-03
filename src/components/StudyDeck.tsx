@@ -32,8 +32,9 @@ interface StudyDeckProps {
   onPrev: () => void;
   onGoToCard: (index: number) => void;
   onShuffle: () => void;
+  onRefreshPackage: () => void;
   onRemoveCard: (id: string) => void;
-  onResetToStarter: () => void;
+  onResetToStarter?: () => void;
   onAddCustomCard: (card: Omit<Flashcard, 'id' | 'createdAt'>) => void;
   onSwitchToWorkspace: () => void;
 }
@@ -43,14 +44,16 @@ const DEFAULT_DISPLAY_LANGS: LanguageCode[] = ['en', 'de', 'nl', 'id'];
 const getCategoryLabel = (cat?: string) => {
   if (!cat) return null;
   switch (cat.toLowerCase()) {
+    case 'daily':
+      return '💬 Daily Conversation';
     case 'office':
-      return '💼 Office Life';
+      return '💼 Office & Work';
     case 'travel':
       return '✈️ Travel & Logistics';
     case 'nature':
-      return '🌿 Nature & Environment';
+      return '🌿 Nature & Climate';
     case 'tools':
-      return '🔧 Technical & Tools';
+      return '🔧 Tools & Engineering';
     case 'construction':
       return '🏗️ Heavy Construction';
     case 'manufacturing':
@@ -76,8 +79,8 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
   onPrev,
   onGoToCard,
   onShuffle,
+  onRefreshPackage,
   onRemoveCard,
-  onResetToStarter,
   onAddCustomCard,
   onSwitchToWorkspace,
 }) => {
@@ -211,15 +214,15 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
           </div>
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">Your Study Deck is Empty</h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 max-w-sm">
-            Save technical vocabulary from the Live Workspace with the bookmark button, or restore our curated technical starter pack!
+            Save vocabulary from the Live Workspace with the bookmark button, or load a fresh 20-card package from the master database!
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
-              onClick={onResetToStarter}
+              onClick={onRefreshPackage}
               className="px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs shadow-lg hover:bg-emerald-400 transition-all cursor-pointer flex items-center gap-2 active:scale-95"
             >
               <RefreshCw className="w-3.5 h-3.5" />
-              <span>Load Starter Deck</span>
+              <span>Load 20-Card Package</span>
             </button>
             <button
               onClick={onSwitchToWorkspace}
@@ -306,6 +309,17 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
           >
             <Shuffle className="w-3.5 h-3.5 text-emerald-500" />
             <span className="hidden sm:inline">Shuffle</span>
+          </button>
+
+          {/* Refresh / New Package */}
+          <button
+            onClick={onRefreshPackage}
+            title="Load fresh 20-card mix from 50+ master vocabulary pool"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/40 dark:bg-slate-900/40 hover:bg-teal-500/20 text-slate-800 dark:text-slate-200 hover:text-teal-400 border border-white/60 dark:border-white/10 shadow-md transition-all cursor-pointer active:scale-95 text-xs font-bold"
+          >
+            <RefreshCw className="w-3.5 h-3.5 text-teal-400" />
+            <span className="hidden sm:inline">New Package</span>
+            <span className="sm:hidden">New</span>
           </button>
 
           {/* View All Deck Cards */}
@@ -531,8 +545,8 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
           <span className="hidden sm:inline">Prev</span>
         </button>
 
-        {/* Center: Flip, Shuffle & Quick Controls */}
-        <div className="flex items-center gap-2">
+        {/* Center: Flip, Shuffle, New Package & Quick Controls */}
+        <div className="flex flex-wrap items-center justify-center gap-2">
           {/* Flip Button */}
           <button
             onClick={onFlip}
@@ -551,6 +565,17 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
           >
             <Shuffle className="w-4 h-4 text-emerald-500" />
             <span>Shuffle</span>
+          </button>
+
+          {/* Prominent New Package Button */}
+          <button
+            onClick={onRefreshPackage}
+            title="Generate a brand-new random 20-card mix from the 50+ master vocabulary pool"
+            className="flex items-center gap-1.5 px-3.5 sm:px-4 py-2.5 rounded-2xl bg-white/60 dark:bg-slate-800/80 hover:bg-teal-50 dark:hover:bg-teal-950/40 text-slate-800 dark:text-teal-300 hover:text-teal-600 dark:hover:text-teal-200 border border-white/60 dark:border-teal-500/30 text-xs font-bold shadow-lg transition-all cursor-pointer active:scale-95"
+          >
+            <RefreshCw className="w-4 h-4 text-teal-400" />
+            <span className="hidden sm:inline">New Package</span>
+            <span className="sm:hidden">New</span>
           </button>
 
           {/* Remove from Deck */}
@@ -664,11 +689,12 @@ export const StudyDeck: React.FC<StudyDeckProps> = ({
             {/* Modal Footer */}
             <div className="p-4 border-t border-slate-200/50 dark:border-white/10 flex items-center justify-between text-xs">
               <button
-                onClick={onResetToStarter}
+                onClick={onRefreshPackage}
                 className="text-slate-500 hover:text-emerald-500 font-semibold cursor-pointer flex items-center gap-1.5"
+                title="Generate a fresh random 20-card mix from the 50+ master pool"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
-                <span>Reset Starter Deck</span>
+                <span>New 20-Card Package</span>
               </button>
               <button
                 onClick={() => setIsOverviewOpen(false)}

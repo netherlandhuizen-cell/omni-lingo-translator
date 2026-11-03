@@ -1,12 +1,244 @@
 import type { Flashcard } from '../types';
 
-export const STARTER_FLASHCARDS: Flashcard[] = [
-  // ---------------------------------------------------------
-  // 1. Daily / Office Life
-  // ---------------------------------------------------------
+export const MASTER_VOCABULARY_POOL: Flashcard[] = [
+  // =========================================================
+  // 1. Daily Conversation & Social (12 words)
+  // =========================================================
   {
-    id: 'starter-meeting',
+    id: 'master-welcome',
     createdAt: 1730000001000,
+    primaryTerm: 'Welcome',
+    primaryLang: 'en',
+    translations: {
+      en: 'Welcome',
+      de: 'Willkommen',
+      nl: 'Welkom',
+      id: 'Selamat Datang',
+    },
+    visual: {
+      title: 'Warm Nusantara Welcome',
+      description: 'Traditional greeting extending genuine hospitality and openness to visitors and guests.',
+      imageUrl: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Universal warm greeting welcoming visitors.',
+  },
+  {
+    id: 'master-thank-you',
+    createdAt: 1730000002000,
+    primaryTerm: 'Thank You',
+    primaryLang: 'en',
+    translations: {
+      en: 'Thank You',
+      de: 'Danke schön',
+      nl: 'Dank je wel',
+      id: 'Terima Kasih',
+    },
+    visual: {
+      title: 'Expression of Gratitude',
+      description: 'Polite expression of appreciation and heartfelt thankfulness across cultures.',
+      imageUrl: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Essential phrase expressing gratitude.',
+  },
+  {
+    id: 'master-friendship',
+    createdAt: 1730000003000,
+    primaryTerm: 'Friendship',
+    primaryLang: 'en',
+    translations: {
+      en: 'Friendship',
+      de: 'Freundschaft',
+      nl: 'Vriendschap',
+      id: 'Persahabatan',
+    },
+    visual: {
+      title: 'Enduring Friendship',
+      description: 'Close emotional bond of mutual trust, support, and shared human experiences.',
+      imageUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Bond of trust and companionship.',
+  },
+  {
+    id: 'master-celebration',
+    createdAt: 1730000004000,
+    primaryTerm: 'Celebration',
+    primaryLang: 'en',
+    translations: {
+      en: 'Celebration',
+      de: 'Feier',
+      nl: 'Viering',
+      id: 'Perayaan',
+    },
+    visual: {
+      title: 'Joyful Festive Celebration',
+      description: 'Social gathering commemorating milestones, cultural holidays, and personal triumphs.',
+      imageUrl: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Joyful gathering marking significant moments.',
+  },
+  {
+    id: 'master-breakfast',
+    createdAt: 1730000005000,
+    primaryTerm: 'Breakfast',
+    primaryLang: 'en',
+    translations: {
+      en: 'Breakfast',
+      de: 'Frühstück',
+      nl: 'Ontbijt',
+      id: 'Sarapan',
+    },
+    visual: {
+      title: 'Nourishing Morning Breakfast',
+      description: 'First meal of the day providing essential energy to commence daily activities.',
+      imageUrl: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Essential morning meal providing energy.',
+  },
+  {
+    id: 'master-dinner',
+    createdAt: 1730000006000,
+    primaryTerm: 'Dinner',
+    primaryLang: 'en',
+    translations: {
+      en: 'Dinner',
+      de: 'Abendessen',
+      nl: 'Avondeten',
+      id: 'Makan Malam',
+    },
+    visual: {
+      title: 'Shared Evening Dinner',
+      description: 'Main evening meal enjoyed together with family or friends to unwind after a full day.',
+      imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Evening meal gathering family and companions.',
+  },
+  {
+    id: 'master-market',
+    createdAt: 1730000007000,
+    primaryTerm: 'Market',
+    primaryLang: 'en',
+    translations: {
+      en: 'Traditional Market',
+      de: 'Wochenmarkt',
+      nl: 'Markt',
+      id: 'Pasar Tradisional',
+    },
+    visual: {
+      title: 'Vibrant Archipelago Market',
+      description: 'Bustling local trading venue where fresh produce, spices, and artisan goods are traded.',
+      imageUrl: 'https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Dynamic local marketplace for trade and interaction.',
+  },
+  {
+    id: 'master-recipe',
+    createdAt: 1730000008000,
+    primaryTerm: 'Recipe',
+    primaryLang: 'en',
+    translations: {
+      en: 'Cooking Recipe',
+      de: 'Kochrezept',
+      nl: 'Kookrecept',
+      id: 'Resep Masakan',
+    },
+    visual: {
+      title: 'Culinary Herb & Spice Recipe',
+      description: 'Structured set of instructions and natural ingredients used to prepare delicious culinary dishes.',
+      imageUrl: 'https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Detailed culinary preparation guide.',
+  },
+  {
+    id: 'master-hospitality',
+    createdAt: 1730000009000,
+    primaryTerm: 'Hospitality',
+    primaryLang: 'en',
+    translations: {
+      en: 'Hospitality',
+      de: 'Gastfreundschaft',
+      nl: 'Gastvrijheid',
+      id: 'Keramahan',
+    },
+    visual: {
+      title: 'Warm Cultural Hospitality',
+      description: 'Friendly and generous reception and entertainment of guests, visitors, or strangers.',
+      imageUrl: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Heartfelt cultural welcoming of guests.',
+  },
+  {
+    id: 'master-conversation',
+    createdAt: 1730000010000,
+    primaryTerm: 'Conversation',
+    primaryLang: 'en',
+    translations: {
+      en: 'Conversation',
+      de: 'Gespräch',
+      nl: 'Gesprek',
+      id: 'Percakapan',
+    },
+    visual: {
+      title: 'Engaging Dialogue & Conversation',
+      description: 'Interactive talk between two or more people exchanging thoughts, ideas, and stories.',
+      imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Interactive verbal exchange of ideas.',
+  },
+  {
+    id: 'master-gratitude',
+    createdAt: 1730000011000,
+    primaryTerm: 'Gratitude',
+    primaryLang: 'en',
+    translations: {
+      en: 'Gratitude',
+      de: 'Dankbarkeit',
+      nl: 'Dankbaarheid',
+      id: 'Rasa Syukur',
+    },
+    visual: {
+      title: 'Mindful Gratitude & Harmony',
+      description: 'The quality of being thankful and showing readiness to return kindness and appreciate life.',
+      imageUrl: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Deep feeling and state of appreciation.',
+  },
+  {
+    id: 'master-agreement',
+    createdAt: 1730000012000,
+    primaryTerm: 'Agreement',
+    primaryLang: 'en',
+    translations: {
+      en: 'Agreement',
+      de: 'Einigung',
+      nl: 'Overeenkomst',
+      id: 'Kesepakatan',
+    },
+    visual: {
+      title: 'Mutual Handshake Agreement',
+      description: 'Harmony of opinion or formal accord reached between two collaborating parties.',
+      imageUrl: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80',
+      category: 'daily',
+    },
+    notes: 'Mutual consensus and shared commitment.',
+  },
+
+  // =========================================================
+  // 2. Office Life & Professional (12 words)
+  // =========================================================
+  {
+    id: 'master-meeting',
+    createdAt: 1730000013000,
     primaryTerm: 'Meeting',
     primaryLang: 'en',
     translations: {
@@ -24,8 +256,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Daily workplace collaboration and strategy session.',
   },
   {
-    id: 'starter-deadline',
-    createdAt: 1730000002000,
+    id: 'master-deadline',
+    createdAt: 1730000014000,
     primaryTerm: 'Deadline',
     primaryLang: 'en',
     translations: {
@@ -43,8 +275,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Target completion milestone in project management.',
   },
   {
-    id: 'starter-workspace',
-    createdAt: 1730000003000,
+    id: 'master-workspace',
+    createdAt: 1730000015000,
     primaryTerm: 'Workspace',
     primaryLang: 'en',
     translations: {
@@ -62,8 +294,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Dedicated productive desk and office setup.',
   },
   {
-    id: 'starter-coffee-break',
-    createdAt: 1730000004000,
+    id: 'master-coffee-break',
+    createdAt: 1730000016000,
     primaryTerm: 'Coffee Break',
     primaryLang: 'en',
     translations: {
@@ -80,13 +312,165 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     },
     notes: 'Essential daily restorative pause.',
   },
-
-  // ---------------------------------------------------------
-  // 2. Travel & Logistics
-  // ---------------------------------------------------------
   {
-    id: 'starter-archipelago',
-    createdAt: 1730000005000,
+    id: 'master-presentation',
+    createdAt: 1730000017000,
+    primaryTerm: 'Presentation',
+    primaryLang: 'en',
+    translations: {
+      en: 'Presentation',
+      de: 'Präsentation',
+      nl: 'Presentatie',
+      id: 'Presentasi',
+    },
+    visual: {
+      title: 'Executive Keynote Presentation',
+      description: 'Formal delivery of information, architectural designs, and product strategies to an audience.',
+      imageUrl: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1200&q=80',
+      category: 'office',
+    },
+    notes: 'Visual showcase of proposals and data.',
+  },
+  {
+    id: 'master-contract',
+    createdAt: 1730000018000,
+    primaryTerm: 'Contract',
+    primaryLang: 'en',
+    translations: {
+      en: 'Business Contract',
+      de: 'Geschäftsvertrag',
+      nl: 'Zakelijk Contract',
+      id: 'Kontrak Bisnis',
+    },
+    visual: {
+      title: 'Legal Corporate Agreement',
+      description: 'Legally binding document establishing clear duties, timelines, and rights between partners.',
+      imageUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80',
+      category: 'office',
+    },
+    notes: 'Legally binding commercial agreement.',
+  },
+  {
+    id: 'master-teamwork',
+    createdAt: 1730000019000,
+    primaryTerm: 'Teamwork',
+    primaryLang: 'en',
+    translations: {
+      en: 'Teamwork',
+      de: 'Teamarbeit',
+      nl: 'Samenwerking',
+      id: 'Kerja Sama Tim',
+    },
+    visual: {
+      title: 'Cohesive Agile Teamwork',
+      description: 'Combined collaborative action of colleagues working harmoniously to achieve shared goals.',
+      imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80',
+      category: 'office',
+    },
+    notes: 'Synergistic group problem solving.',
+  },
+  {
+    id: 'master-schedule',
+    createdAt: 1730000020000,
+    primaryTerm: 'Schedule',
+    primaryLang: 'en',
+    translations: {
+      en: 'Weekly Schedule',
+      de: 'Wochenplan',
+      nl: 'Weekschema',
+      id: 'Jadwal Mingguan',
+    },
+    visual: {
+      title: 'Organized Time Schedule',
+      description: 'Structured timetable organizing activities, deliverables, and calendar events.',
+      imageUrl: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80',
+      category: 'office',
+    },
+    notes: 'Structured time allocation plan.',
+  },
+  {
+    id: 'master-budget',
+    createdAt: 1730000021000,
+    primaryTerm: 'Budget',
+    primaryLang: 'en',
+    translations: {
+      en: 'Financial Budget',
+      de: 'Finanzbudget',
+      nl: 'Begroting',
+      id: 'Anggaran Biaya',
+    },
+    visual: {
+      title: 'Corporate Financial Forecasting',
+      description: 'Comprehensive financial plan estimating revenue, expenditures, and capital allocation.',
+      imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80',
+      category: 'office',
+    },
+    notes: 'Financial planning and resource estimation.',
+  },
+  {
+    id: 'master-negotiation',
+    createdAt: 1730000022000,
+    primaryTerm: 'Negotiation',
+    primaryLang: 'en',
+    translations: {
+      en: 'Business Negotiation',
+      de: 'Geschäftsverhandlung',
+      nl: 'Onderhandeling',
+      id: 'Negosiasi',
+    },
+    visual: {
+      title: 'Strategic Commercial Negotiation',
+      description: 'Structured discussion aimed at reaching an advantageous agreement between stakeholders.',
+      imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80',
+      category: 'office',
+    },
+    notes: 'Diplomatic discourse aimed at mutual terms.',
+  },
+  {
+    id: 'master-strategy',
+    createdAt: 1730000023000,
+    primaryTerm: 'Strategy',
+    primaryLang: 'en',
+    translations: {
+      en: 'Strategic Plan',
+      de: 'Strategischer Plan',
+      nl: 'Strategisch Plan',
+      id: 'Rencana Strategis',
+    },
+    visual: {
+      title: 'High-Level Business Strategy',
+      description: 'Systematic plan designed to achieve sustained success and navigate complex competitive landscapes.',
+      imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80',
+      category: 'office',
+    },
+    notes: 'Long-term roadmap for achieving milestones.',
+  },
+  {
+    id: 'master-feedback',
+    createdAt: 1730000024000,
+    primaryTerm: 'Feedback',
+    primaryLang: 'en',
+    translations: {
+      en: 'Constructive Feedback',
+      de: 'Konstruktives Feedback',
+      nl: 'Constructieve Feedback',
+      id: 'Masukan Membangun',
+    },
+    visual: {
+      title: 'Continuous Review & Growth',
+      description: 'Evaluative insights aimed at refining performance, quality, and user satisfaction.',
+      imageUrl: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80',
+      category: 'office',
+    },
+    notes: 'Actionable input driving improvements.',
+  },
+
+  // =========================================================
+  // 3. Travel & Logistics (12 words)
+  // =========================================================
+  {
+    id: 'master-archipelago',
+    createdAt: 1730000025000,
     primaryTerm: 'Archipelago',
     primaryLang: 'en',
     translations: {
@@ -104,8 +488,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'The geographic and cultural identity of Nusantara.',
   },
   {
-    id: 'starter-departure',
-    createdAt: 1730000006000,
+    id: 'master-departure',
+    createdAt: 1730000026000,
     primaryTerm: 'Departure',
     primaryLang: 'en',
     translations: {
@@ -123,8 +507,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Primary transit milestone in global logistics.',
   },
   {
-    id: 'starter-customs',
-    createdAt: 1730000007000,
+    id: 'master-customs',
+    createdAt: 1730000027000,
     primaryTerm: 'Customs',
     primaryLang: 'en',
     translations: {
@@ -142,8 +526,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Cross-border import/export and passport clearance.',
   },
   {
-    id: 'starter-luggage',
-    createdAt: 1730000008000,
+    id: 'master-luggage',
+    createdAt: 1730000028000,
     primaryTerm: 'Luggage',
     primaryLang: 'en',
     translations: {
@@ -161,8 +545,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Essential gear for passenger journeys.',
   },
   {
-    id: 'starter-harbor',
-    createdAt: 1730000009000,
+    id: 'master-harbor',
+    createdAt: 1730000029000,
     primaryTerm: 'Harbor',
     primaryLang: 'en',
     translations: {
@@ -179,13 +563,146 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     },
     notes: 'Vital maritime nexus connecting islands.',
   },
-
-  // ---------------------------------------------------------
-  // 3. Nature & Environment
-  // ---------------------------------------------------------
   {
-    id: 'starter-horizon',
-    createdAt: 1730000010000,
+    id: 'master-passport',
+    createdAt: 1730000030000,
+    primaryTerm: 'Passport',
+    primaryLang: 'en',
+    translations: {
+      en: 'Passport',
+      de: 'Reisepass',
+      nl: 'Paspoort',
+      id: 'Paspor',
+    },
+    visual: {
+      title: 'International Travel Passport',
+      description: 'Official national credential verifying identity and citizenship for international border travel.',
+      imageUrl: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80',
+      category: 'travel',
+    },
+    notes: 'Official document for cross-border journeys.',
+  },
+  {
+    id: 'master-boarding-pass',
+    createdAt: 1730000031000,
+    primaryTerm: 'Boarding Pass',
+    primaryLang: 'en',
+    translations: {
+      en: 'Boarding Pass',
+      de: 'Bordkarte',
+      nl: 'Instapkaart',
+      id: 'Tiket Masuk Pesawat',
+    },
+    visual: {
+      title: 'Airline Passenger Boarding Pass',
+      description: 'Travel ticket permitting a passenger to board a commercial aircraft for a flight.',
+      imageUrl: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80',
+      category: 'travel',
+    },
+    notes: 'Document granting access to aircraft or vessel.',
+  },
+  {
+    id: 'master-ferry',
+    createdAt: 1730000032000,
+    primaryTerm: 'Ferry',
+    primaryLang: 'en',
+    translations: {
+      en: 'Ferry Boat',
+      de: 'Autofähre',
+      nl: 'Veerboot',
+      id: 'Kapal Feri',
+    },
+    visual: {
+      title: 'Inter-Island Passenger Ferry',
+      description: 'Commercial vessel carrying passengers, cars, and regional freight across bodies of water.',
+      imageUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
+      category: 'travel',
+    },
+    notes: 'Crucial transport linking neighboring islands.',
+  },
+  {
+    id: 'master-lighthouse',
+    createdAt: 1730000033000,
+    primaryTerm: 'Lighthouse',
+    primaryLang: 'en',
+    translations: {
+      en: 'Coastal Lighthouse',
+      de: 'Leuchtturm',
+      nl: 'Vuurtoren',
+      id: 'Mercusuar',
+    },
+    visual: {
+      title: 'Historic Maritime Lighthouse',
+      description: 'Tower equipped with navigational beacons guiding ships safely through reefs and rocky coasts.',
+      imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      category: 'travel',
+    },
+    notes: 'Coastal navigational beacon preventing shipwrecks.',
+  },
+  {
+    id: 'master-destination',
+    createdAt: 1730000034000,
+    primaryTerm: 'Destination',
+    primaryLang: 'en',
+    translations: {
+      en: 'Destination',
+      de: 'Reiseziel',
+      nl: 'Bestemming',
+      id: 'Destinasi Wisata',
+    },
+    visual: {
+      title: 'Scenic Travel Destination',
+      description: 'The end goal or chosen location toward which a journey is undertaken.',
+      imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80',
+      category: 'travel',
+    },
+    notes: 'Target arrival point of an expedition.',
+  },
+  {
+    id: 'master-railway',
+    createdAt: 1730000035000,
+    primaryTerm: 'Railway',
+    primaryLang: 'en',
+    translations: {
+      en: 'Railway Station',
+      de: 'Bahnhof',
+      nl: 'Spoorwegstation',
+      id: 'Stasiun Kereta Api',
+    },
+    visual: {
+      title: 'Modern High-Speed Railway',
+      description: 'Infrastructure network of steel tracks and electric trains connecting cities and provinces.',
+      imageUrl: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1200&q=80',
+      category: 'travel',
+    },
+    notes: 'High-speed mass transit infrastructure.',
+  },
+  {
+    id: 'master-cargo-ship',
+    createdAt: 1730000036000,
+    primaryTerm: 'Cargo Ship',
+    primaryLang: 'en',
+    translations: {
+      en: 'Container Cargo Ship',
+      de: 'Containerschiff',
+      nl: 'Containerschip',
+      id: 'Kapal Kargo Kontainer',
+    },
+    visual: {
+      title: 'Ocean Container Cargo Carrier',
+      description: 'Massive merchant vessel engineered to transport heavy intermodal containers across global oceans.',
+      imageUrl: 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=1200&q=80',
+      category: 'travel',
+    },
+    notes: 'Backbone of intercontinental maritime trade.',
+  },
+
+  // =========================================================
+  // 4. Nature & Climate Environment (10 words)
+  // =========================================================
+  {
+    id: 'master-horizon',
+    createdAt: 1730000037000,
     primaryTerm: 'Horizon',
     primaryLang: 'en',
     translations: {
@@ -203,12 +720,12 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Expansive scenic boundary line across the sea.',
   },
   {
-    id: 'starter-tide',
-    createdAt: 1730000011000,
+    id: 'master-tide',
+    createdAt: 1730000038000,
     primaryTerm: 'Tide',
     primaryLang: 'en',
     translations: {
-      en: 'Tide',
+      en: 'Ocean Tide',
       de: 'Gezeiten',
       nl: 'Getijde',
       id: 'Pasang Surut',
@@ -222,8 +739,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Rhythmic sea fluctuation governing maritime navigation.',
   },
   {
-    id: 'starter-rainforest',
-    createdAt: 1730000012000,
+    id: 'master-rainforest',
+    createdAt: 1730000039000,
     primaryTerm: 'Rainforest',
     primaryLang: 'en',
     translations: {
@@ -240,17 +757,150 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     },
     notes: 'Crucial ecosystem and ecological sanctuary.',
   },
-
-  // ---------------------------------------------------------
-  // 4. General Technical & Tools
-  // ---------------------------------------------------------
   {
-    id: 'starter-wrench',
-    createdAt: 1730000013000,
+    id: 'master-volcano',
+    createdAt: 1730000040000,
+    primaryTerm: 'Volcano',
+    primaryLang: 'en',
+    translations: {
+      en: 'Active Volcano',
+      de: 'Vulkan',
+      nl: 'Vulkaan',
+      id: 'Gunung Berapi',
+    },
+    visual: {
+      title: 'Majestic Volcanic Peak',
+      description: 'Rupture in the crust of a planetary-mass object that allows hot lava and volcanic ash to escape.',
+      imageUrl: 'https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=1200&q=80',
+      category: 'nature',
+    },
+    notes: 'Dramatic volcanic geological formations along the Pacific Ring of Fire.',
+  },
+  {
+    id: 'master-coral-reef',
+    createdAt: 1730000041000,
+    primaryTerm: 'Coral Reef',
+    primaryLang: 'en',
+    translations: {
+      en: 'Coral Reef',
+      de: 'Korallenriff',
+      nl: 'Koraalrif',
+      id: 'Terumbu Karang',
+    },
+    visual: {
+      title: 'Vibrant Tropical Coral Reef',
+      description: 'Underwater ecosystem characterized by reef-building corals fostering marine biodiversity.',
+      imageUrl: 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1200&q=80',
+      category: 'nature',
+    },
+    notes: 'Biodiversity powerhouse of tropical seas.',
+  },
+  {
+    id: 'master-waterfall',
+    createdAt: 1730000042000,
+    primaryTerm: 'Waterfall',
+    primaryLang: 'en',
+    translations: {
+      en: 'Tropical Waterfall',
+      de: 'Wasserfall',
+      nl: 'Waterval',
+      id: 'Air Terjun',
+    },
+    visual: {
+      title: 'Cascading Mountain Waterfall',
+      description: 'River or other body of water steep fall over a rocky ledge into a plunge pool below.',
+      imageUrl: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80',
+      category: 'nature',
+    },
+    notes: 'Natural freshwater cascade through lush forests.',
+  },
+  {
+    id: 'master-monsoon',
+    createdAt: 1730000043000,
+    primaryTerm: 'Monsoon',
+    primaryLang: 'en',
+    translations: {
+      en: 'Tropical Monsoon',
+      de: 'Monsun',
+      nl: 'Moesson',
+      id: 'Angin Muson',
+    },
+    visual: {
+      title: 'Seasonal Monsoon Rains',
+      description: 'Seasonal reversing wind accompanied by corresponding changes in atmospheric precipitation.',
+      imageUrl: 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1200&q=80',
+      category: 'nature',
+    },
+    notes: 'Seasonal weather driver nourishing crops.',
+  },
+  {
+    id: 'master-coastline',
+    createdAt: 1730000044000,
+    primaryTerm: 'Coastline',
+    primaryLang: 'en',
+    translations: {
+      en: 'Coastal Shoreline',
+      de: 'Küstenlinie',
+      nl: 'Kustlijn',
+      id: 'Garis Pantai',
+    },
+    visual: {
+      title: 'Pristine Archipelago Coastline',
+      description: 'The dynamic geographical boundary where ocean waves sculpt sand, rocks, and cliffs.',
+      imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      category: 'nature',
+    },
+    notes: 'The scenic meeting of turquoise water and land.',
+  },
+  {
+    id: 'master-sunset',
+    createdAt: 1730000045000,
+    primaryTerm: 'Sunset',
+    primaryLang: 'en',
+    translations: {
+      en: 'Tropical Sunset',
+      de: 'Sonnenuntergang',
+      nl: 'Zonsondergang',
+      id: 'Matahari Terbenam',
+    },
+    visual: {
+      title: 'Golden Twilight Sunset',
+      description: 'Daily disappearance of the Sun below the horizon creating vivid crimson and amber skies.',
+      imageUrl: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?auto=format&fit=crop&w=1200&q=80',
+      category: 'nature',
+    },
+    notes: 'Spectacular daily natural light display.',
+  },
+  {
+    id: 'master-mangrove',
+    createdAt: 1730000046000,
+    primaryTerm: 'Mangrove',
+    primaryLang: 'en',
+    translations: {
+      en: 'Mangrove Forest',
+      de: 'Mangrovenwald',
+      nl: 'Mangrovebos',
+      id: 'Hutan Bakau',
+    },
+    visual: {
+      title: 'Coastal Mangrove Wetland',
+      description: 'Salt-tolerant shrubs and trees along coastal intertidal zones protecting shores against erosion.',
+      imageUrl: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=1200&q=80',
+      category: 'nature',
+    },
+    notes: 'Natural coastal barrier protecting coastlines from storms.',
+  },
+
+  // =========================================================
+  // 5. Tools, Engineering & Technical (12 words)
+  // =========================================================
+  {
+    id: 'master-wrench',
+    createdAt: 1730000047000,
     primaryTerm: 'Wrench',
     primaryLang: 'en',
     translations: {
-      en: 'Wrench',
+      en: 'Adjustable Wrench',
       de: 'Schraubenschlüssel',
       nl: 'Moersleutel',
       id: 'Kunci Pas',
@@ -264,12 +914,12 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Foundational mechanical fastening and repair tool.',
   },
   {
-    id: 'starter-circuit',
-    createdAt: 1730000014000,
+    id: 'master-circuit',
+    createdAt: 1730000048000,
     primaryTerm: 'Circuit',
     primaryLang: 'en',
     translations: {
-      en: 'Circuit',
+      en: 'Electric Circuit',
       de: 'Stromkreis',
       nl: 'Stroomkring',
       id: 'Rangkaian Listrik',
@@ -283,12 +933,12 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Fundamental building block of electronic devices.',
   },
   {
-    id: 'starter-blueprint',
-    createdAt: 1730000015000,
+    id: 'master-blueprint',
+    createdAt: 1730000049000,
     primaryTerm: 'Blueprint',
     primaryLang: 'en',
     translations: {
-      en: 'Blueprint',
+      en: 'Architectural Blueprint',
       de: 'Bauplan',
       nl: 'Bouwtekening',
       id: 'Cetak Biru',
@@ -302,8 +952,8 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Architectural and structural engineering guide.',
   },
   {
-    id: 'starter-gauge',
-    createdAt: 1730000016000,
+    id: 'master-gauge',
+    createdAt: 1730000050000,
     primaryTerm: 'Pressure Gauge',
     primaryLang: 'en',
     translations: {
@@ -321,27 +971,27 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
     notes: 'Instrument for monitoring hydraulic and pneumatic systems.',
   },
   {
-    id: 'starter-excavator',
-    createdAt: 1730000017000,
+    id: 'master-excavator',
+    createdAt: 1730000051000,
     primaryTerm: 'Excavator',
     primaryLang: 'en',
     translations: {
-      en: 'Excavator',
-      de: 'Bagger',
-      nl: 'Graafmachine',
-      id: 'Ekskavator',
+      en: 'Hydraulic Excavator',
+      de: 'Hydraulikbagger',
+      nl: 'Hydraulische Graafmachine',
+      id: 'Ekskavator Hidrolik',
     },
     visual: {
       title: 'Heavy Hydraulic Excavator',
       description: 'Heavy construction vehicle designed for earthmoving, digging trenches, and materials handling.',
       imageUrl: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80',
-      category: 'construction',
+      category: 'tools',
     },
     notes: 'Primary heavy earthmoving equipment on construction sites.',
   },
   {
-    id: 'starter-helmet',
-    createdAt: 1730000018000,
+    id: 'master-helmet',
+    createdAt: 1730000052000,
     primaryTerm: 'Safety Helmet',
     primaryLang: 'en',
     translations: {
@@ -354,21 +1004,144 @@ export const STARTER_FLASHCARDS: Flashcard[] = [
       title: 'Industrial Safety Helmet & PPE',
       description: 'Rigid protective headgear designed to safeguard site personnel against falling debris and impact.',
       imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
-      category: 'construction',
+      category: 'tools',
     },
     notes: 'Mandatory Personal Protective Equipment (PPE).',
   },
+  {
+    id: 'master-solar-panel',
+    createdAt: 1730000053000,
+    primaryTerm: 'Solar Panel',
+    primaryLang: 'en',
+    translations: {
+      en: 'Solar Panel',
+      de: 'Solarmodul',
+      nl: 'Zonnepaneel',
+      id: 'Panel Surya',
+    },
+    visual: {
+      title: 'Photovoltaic Solar Panel',
+      description: 'Clean energy semiconductor device converting direct sunlight into electrical power.',
+      imageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
+      category: 'tools',
+    },
+    notes: 'Renewable photovoltaic energy generator.',
+  },
+  {
+    id: 'master-bulldozer',
+    createdAt: 1730000054000,
+    primaryTerm: 'Bulldozer',
+    primaryLang: 'en',
+    translations: {
+      en: 'Heavy Bulldozer',
+      de: 'Planierraupe',
+      nl: 'Bulldozer',
+      id: 'Buldoser',
+    },
+    visual: {
+      title: 'Crawler Track Bulldozer',
+      description: 'Continuous tracked tractor equipped with a massive metal plate to push soil and rubble.',
+      imageUrl: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80',
+      category: 'tools',
+    },
+    notes: 'Heavy civil grading and earthmoving machine.',
+  },
+  {
+    id: 'master-multimeter',
+    createdAt: 1730000055000,
+    primaryTerm: 'Multimeter',
+    primaryLang: 'en',
+    translations: {
+      en: 'Digital Multimeter',
+      de: 'Digitalmultimeter',
+      nl: 'Digitale Multimeter',
+      id: 'Multimeter Digital',
+    },
+    visual: {
+      title: 'Digital Electronics Multimeter',
+      description: 'Handheld diagnostic tool used to measure voltage, current, resistance, and electrical continuity.',
+      imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+      category: 'tools',
+    },
+    notes: 'Essential electronic testing and troubleshooting tool.',
+  },
+  {
+    id: 'master-welding',
+    createdAt: 1730000056000,
+    primaryTerm: 'Welding Machine',
+    primaryLang: 'en',
+    translations: {
+      en: 'Welding Machine',
+      de: 'Schweißgerät',
+      nl: 'Lasapparaat',
+      id: 'Mesin Las',
+    },
+    visual: {
+      title: 'Industrial Arc Welding Power Source',
+      description: 'High-current metal fabrication unit joining structural metal parts through electrical thermal fusion.',
+      imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+      category: 'tools',
+    },
+    notes: 'Structural metal joining and fabrication machine.',
+  },
+  {
+    id: 'master-crane',
+    createdAt: 1730000057000,
+    primaryTerm: 'Tower Crane',
+    primaryLang: 'en',
+    translations: {
+      en: 'Tower Crane',
+      de: 'Baukran',
+      nl: 'Bouwkraan',
+      id: 'Derek Menara',
+    },
+    visual: {
+      title: 'High-Rise Construction Tower Crane',
+      description: 'Heavy lifting apparatus with pulleys and cables used for moving construction materials.',
+      imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+      category: 'tools',
+    },
+    notes: 'High-elevation structural material hoist.',
+  },
+  {
+    id: 'master-oscilloscope',
+    createdAt: 1730000058000,
+    primaryTerm: 'Oscilloscope',
+    primaryLang: 'en',
+    translations: {
+      en: 'Oscilloscope',
+      de: 'Oszilloskop',
+      nl: 'Oscilloscoop',
+      id: 'Osiloskop',
+    },
+    visual: {
+      title: 'Precision Digital Oscilloscope',
+      description: 'Electronic laboratory instrument graphically displaying varying signal voltages as two-dimensional waveforms.',
+      imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+      category: 'tools',
+    },
+    notes: 'Signal waveform visualization and analysis.',
+  },
 ];
 
+export const STARTER_FLASHCARDS = MASTER_VOCABULARY_POOL;
+
 /**
- * Returns a randomized copy of the starter deck so active recall training
- * begins with fresh, diverse cards across categories every time.
+ * Returns a fresh random package of exactly `packageSize` (default: 20) cards
+ * chosen from the 50+ master vocabulary pool.
  */
-export function getRandomizedStarterDeck(): Flashcard[] {
-  const deck = [...STARTER_FLASHCARDS];
+export function getRandomPackageDeck(packageSize = 20): Flashcard[] {
+  const deck = [...MASTER_VOCABULARY_POOL];
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [deck[i], deck[j]] = [deck[j], deck[i]];
   }
-  return deck;
+  return deck.slice(0, packageSize);
+}
+
+/**
+ * Backwards-compatibility alias for initial load.
+ */
+export function getRandomizedStarterDeck(packageSize = 20): Flashcard[] {
+  return getRandomPackageDeck(packageSize);
 }

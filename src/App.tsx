@@ -56,6 +56,7 @@ export function App() {
     prevCard,
     goToCard,
     shuffleDeck,
+    refreshPackage,
     saveToDeck,
     removeCard,
     resetToStarterDeck,
@@ -210,6 +211,7 @@ export function App() {
               onPrev={prevCard}
               onGoToCard={goToCard}
               onShuffle={shuffleDeck}
+              onRefreshPackage={refreshPackage}
               onRemoveCard={removeCard}
               onResetToStarter={resetToStarterDeck}
               onAddCustomCard={addCustomCard}

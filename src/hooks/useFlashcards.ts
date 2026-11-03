@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Flashcard, LanguageCode, IndustryCategory } from '../types';
-import { getRandomizedStarterDeck } from '../constants/starterDeck';
+import { getRandomPackageDeck } from '../constants/starterDeck';
 import type { VisualReferenceResult } from '../services/visualReference';
 
-const STORAGE_KEY = 'akehboso_study_deck_v2';
-const LEGACY_STORAGE_KEY = 'akehboso_study_deck';
+const STORAGE_KEY = 'akehboso_study_deck_v3';
+const LEGACY_STORAGE_KEYS = ['akehboso_study_deck_v2', 'akehboso_study_deck'];
 
 export function useFlashcards() {
   const [flashcards, setFlashcards] = useState<Flashcard[]>(() => {
-    if (typeof window === 'undefined') return getRandomizedStarterDeck();
+    if (typeof window === 'undefined') return getRandomPackageDeck(20);
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
@@ -19,22 +19,29 @@ export function useFlashcards() {
       }
 
       // Check legacy storage and migrate any custom user cards
-      const legacyStored = localStorage.getItem(LEGACY_STORAGE_KEY);
-      if (legacyStored) {
-        const legacyParsed = JSON.parse(legacyStored);
-        if (Array.isArray(legacyParsed)) {
-          const customUserCards = legacyParsed.filter(
-            (c: Flashcard) => c && c.id && !c.id.startsWith('starter-')
-          );
-          if (customUserCards.length > 0) {
-            return [...customUserCards, ...getRandomizedStarterDeck()];
+      for (const legacyKey of LEGACY_STORAGE_KEYS) {
+        const legacyStored = localStorage.getItem(legacyKey);
+        if (legacyStored) {
+          const legacyParsed = JSON.parse(legacyStored);
+          if (Array.isArray(legacyParsed)) {
+            const customUserCards = legacyParsed.filter(
+              (c: Flashcard) =>
+                c &&
+                c.id &&
+                !c.id.startsWith('master-') &&
+                !c.id.startsWith('starter-')
+            );
+            if (customUserCards.length > 0) {
+              const needed = Math.max(0, 20 - customUserCards.length);
+              return [...customUserCards, ...getRandomPackageDeck(needed > 0 ? needed : 20)];
+            }
           }
         }
       }
     } catch (e) {
       console.error('Failed to parse saved flashcards:', e);
     }
-    return getRandomizedStarterDeck();
+    return getRandomPackageDeck(20);
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -192,12 +199,28 @@ export function useFlashcards() {
     [showToast]
   );
 
-  const resetToStarterDeck = useCallback(() => {
-    setFlashcards(getRandomizedStarterDeck());
+  const refreshPackage = useCallback(() => {
+    // Preserve any user-created custom cards
+    const customUserCards = flashcards.filter(
+      (c) =>
+        c &&
+        c.id &&
+        !c.id.startsWith('master-') &&
+        !c.id.startsWith('starter-')
+    );
+    const slotsNeeded = Math.max(0, 20 - customUserCards.length);
+    const freshCards = getRandomPackageDeck(slotsNeeded > 0 ? slotsNeeded : 20);
+    const nextDeck = [...customUserCards, ...freshCards];
+
+    setFlashcards(nextDeck);
     setCurrentIndex(0);
     setIsFlipped(false);
-    showToast('Reset to diverse randomized starter deck ↺');
-  }, [showToast]);
+    showToast('Loaded fresh 20-card vocabulary package! 🔄');
+  }, [flashcards, showToast]);
+
+  const resetToStarterDeck = useCallback(() => {
+    refreshPackage();
+  }, [refreshPackage]);
 
   const addCustomCard = useCallback(
     (card: Omit<Flashcard, 'id' | 'createdAt'>) => {
@@ -226,6 +249,7 @@ export function useFlashcards() {
     prevCard,
     goToCard,
     shuffleDeck,
+    refreshPackage,
     saveToDeck,
     removeCard,
     resetToStarterDeck,
