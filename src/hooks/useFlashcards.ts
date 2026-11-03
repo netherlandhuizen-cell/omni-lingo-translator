@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Flashcard, LanguageCode, IndustryCategory } from '../types';
-import { getRandomPackageDeck } from '../constants/starterDeck';
+import { getRandomPackageDeck, shuffleArray } from '../constants/starterDeck';
 import type { VisualReferenceResult } from '../services/visualReference';
 
-const CURRENT_STORAGE_KEY = 'akehboso_pure_daily_study_deck_v5';
+const CURRENT_STORAGE_KEY = 'akehboso_multitopic_study_deck_v6';
 const OBSOLETE_STORAGE_KEYS = [
   'akehboso_study_deck',
   'akehboso_study_deck_v2',
   'akehboso_study_deck_v3',
   'akehboso_daily_study_deck_v4',
+  'akehboso_pure_daily_study_deck_v5',
 ];
 
 const CONSTRUCTION_JARGON_TERMS = [
@@ -168,14 +169,7 @@ export function useFlashcards() {
   const shuffleDeck = useCallback(() => {
     if (flashcards.length <= 1) return;
     setIsFlipped(false);
-    setFlashcards((prev) => {
-      const shuffled = [...prev];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
-    });
+    setFlashcards((prev) => shuffleArray(prev));
     setCurrentIndex(0);
     showToast('Deck shuffled! Random active recall mode 🔀');
   }, [flashcards.length, showToast]);
@@ -276,7 +270,7 @@ export function useFlashcards() {
     setFlashcards(nextDeck);
     setCurrentIndex(0);
     setIsFlipped(false);
-    showToast('Loaded fresh 20-card daily vocabulary package! 🔄');
+    showToast('Loaded fresh 20-card multi-topic package! 🔄');
   }, [flashcards, showToast]);
 
   const resetToStarterDeck = useCallback(() => {

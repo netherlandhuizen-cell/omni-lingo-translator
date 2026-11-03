@@ -44,10 +44,20 @@ const DEFAULT_DISPLAY_LANGS: LanguageCode[] = ['en', 'de', 'nl', 'id'];
 const getCategoryLabel = (cat?: string) => {
   if (!cat) return null;
   switch (cat.toLowerCase()) {
+    case 'food':
+      return '🍲 Food & Dining';
+    case 'travel':
+      return '✈️ Travel & Places';
+    case 'feelings':
+      return '💛 Feelings & Traits';
+    case 'actions':
+      return '⚡ Actions & Verbs';
+    case 'nature':
+      return '🌿 Environment & Weather';
+    case 'business':
+      return '💼 Business & Focus';
     case 'home':
       return '🏠 Daily Life & Home';
-    case 'food':
-      return '☕ Food & Dining';
     case 'social':
       return '💛 Emotions & Social';
     case 'weather':
